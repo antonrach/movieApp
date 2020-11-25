@@ -1,0 +1,13 @@
+@import '../abstracts/module';
+
+.footer {
+    height: 5vh;
+    position: relative;
+    background-color: $dark-green-blue;
+    & > p {
+        color: $light-gray;
+        @include center;
+        font-family: cursive;
+        font-size: 2vh;
+    }
+}

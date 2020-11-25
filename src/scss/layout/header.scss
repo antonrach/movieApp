@@ -1,0 +1,17 @@
+@import '../abstracts/module';
+
+.header {
+    background-image: url('~/img/anantara_veli_experiences_movieunderstars_header_1920x600.jpg');
+    background-size: cover;
+    & > .darkheader {
+        height: 40vh;
+        & > .container {
+            height: 40vh;
+        }
+        padding-top: 50px;
+    }
+}
+
+.darkheader {
+    background-color: $dark;
+}
