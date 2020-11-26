@@ -9,13 +9,16 @@
     }
 }
 .results {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
     width: 90%;
     margin-left: auto;
     margin-right: auto;
+    display: none;
+    &._active {
+        display: flex;
+    }
 }
 
 .number {

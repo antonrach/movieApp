@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Movie = () => {
+const Movie = (props) => {
     return (
         <div className="movie">
             <div className="movie-cont">
@@ -8,21 +8,28 @@ const Movie = () => {
                     <div
                         className="poster"
                         style={{
-                            backgroundImage: `url('https://image.tmdb.org/t/p/w500/bi9JddwTwBt3ixGLAiMAF7OXMbV.jpg')`,
+                            backgroundImage: `url(${props.moviePoster})`,
                             backgroundSize: 'cover',
                         }}
                     ></div>
                     <div className="movie-title">
-                        The Lord of the Rings: The Fellowship of the Ring
+                        {props.movieTittle}
                     </div>
                 </div>
                 <div className="gandy">
                     <div className="genres">
-                        <p className="genre">Adventure</p>
-                        <p className="genre">Fantasy</p>
-                        <p className="genre">Action</p>
+                        {props.movieGenres.map((item, id) => (
+                            <p
+                                className="genre"
+                                key={id}
+                            >
+                                {item}
+                            </p>
+                        ))}
                     </div>
-                    <div className="year">2001</div>
+                    <div className="year">
+                        {props.movieYear}
+                    </div>
                 </div>
             </div>
         </div>
