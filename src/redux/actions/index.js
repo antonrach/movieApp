@@ -1,4 +1,12 @@
+let loading = false;
+
 const addMovie = (value, searchBy, sortBy) => {
+    if(loading) {
+        return (_dispatch) => {
+            
+        }
+    }
+    loading = true;
     return (_dispatch) => {
         fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&limit=12`)
             .then(res => res.json())
@@ -6,8 +14,11 @@ const addMovie = (value, searchBy, sortBy) => {
                 _dispatch({
                     type: 'CLEAR',
                 });
+                if(+data.total === 0) {
+                    loading = false;
+                }
                 async function imgLoad() {
-                    for (let item of data.data) {
+                    for (let [id, item] of data.data.entries()) {
                         function p() {
                             return new Promise(res => {
                                 const img = new Image();
@@ -17,6 +28,9 @@ const addMovie = (value, searchBy, sortBy) => {
                                         type: 'ADD_MOVIE',
                                         payload: item,
                                     })
+                                    if(id === (data.data.length - 1)) {
+                                        loading = false;
+                                    }
                                     res();
                                 })
                                 img.onerror = (() => {
@@ -24,6 +38,9 @@ const addMovie = (value, searchBy, sortBy) => {
                                         type: 'ADD_MOVIE_IMG',
                                         payload: item,
                                     })
+                                    if(id === (data.data.length - 1)) {
+                                        loading = false;
+                                    }
                                     res();
                                 })
                             })
@@ -37,7 +54,21 @@ const addMovie = (value, searchBy, sortBy) => {
                     type: 'NUMBER',
                     payload: data,
                 });
-                console.log(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&limit=12`);
+                if(value !== '') {
+                    _dispatch({
+                        type: 'RESULTS',
+                        payload: {
+                            results: value,
+                        },
+                    })
+                } else {
+                    _dispatch({
+                        type: 'RESULTS_HIDE',
+                    })
+                }
+            })
+            .catch(() => {
+                loading = false;
             })
     }
 }

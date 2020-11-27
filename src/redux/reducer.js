@@ -7,6 +7,7 @@ const initialState = {
     searchBy: [' _active', '', 'title'],
     sortBy: [' _active', '', 'release_date'],
     value: '',
+    resultsFor: ['', ''],
 };
 
 const reducer = (state = initialState, action) => {
@@ -72,6 +73,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 value: action.payload.value,
+            };
+        case 'RESULTS':
+            return {
+                ...state,
+                resultsFor: [' _active', action.payload.results],
+            };
+        case 'RESULTS_HIDE':
+            return {
+                ...state,
+                resultsFor: ['', ''],
             };
         default:
             return state;

@@ -11,11 +11,13 @@ const MovieArea = () => {
     const sortBy = useSelector((state) => state.sortBy);
     const searchBy = useSelector((state) => state.searchBy);
     const value = useSelector((state) => state.value);
+    const resultsFor = useSelector((state) => state.resultsFor);
     const dispatch = useDispatch();
     
     return (
         <div className="movie-area">
             <div className="container">
+                <div className={"results-for" + resultsFor[0]}>Results for <span>'{resultsFor[1]}':</span></div>
                 <div className={"results" + hideNum}>
                     <div className="number">{num} movies found</div>
                     <div className="sort-by">
