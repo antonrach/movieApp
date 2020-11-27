@@ -18,7 +18,19 @@ const MovieArea = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(addMovie(value, searchBy[2], sortBy[2]));
+        if(
+            localStorage.getItem('searchValue') !== null &&
+            localStorage.getItem('sortBy') !== null &&
+            localStorage.getItem('searchBy') !== null
+        ) {
+            const newValue = localStorage.getItem('searchValue');
+            const newSort = localStorage.getItem('sortBy');
+            const newSearch = localStorage.getItem('searchBy');
+    
+            dispatch(addMovie(newValue, newSearch, newSort));
+        } else {
+            dispatch(addMovie('', searchBy[2], sortBy[2]));
+        }
     }, []);
     
     return (
@@ -50,7 +62,6 @@ const MovieArea = () => {
                             onClick={() => {
                                 const newSort = 'release_date';
                                 dispatch(addMovie(value, searchBy[2], newSort));
-                                dispatch({type: 'DATE'});
                             }}
                         >
                             Release date
@@ -61,7 +72,6 @@ const MovieArea = () => {
                             onClick={() => {
                                 const newSort = 'vote_average';
                                 dispatch(addMovie(value, searchBy[2], newSort));
-                                dispatch({type: 'RATING'});
                             }}
                         >
                             Rating

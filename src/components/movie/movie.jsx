@@ -31,10 +31,7 @@ const Movie = (props) => {
                                 className="genre"
                                 key={id}
                                 onClick={() => {
-                                    window.scrollTo(0, 0);
-                                    dispatch({type: 'GENRES'});
-                                    dispatch(addMovie(item, 'genres', sortBy[2]));
-                                    dispatch({type: 'VALUE', payload: {value: item}});
+                                    dispatch(addMovie(item, 'genres', sortBy[2], true));
                                 }}
                             >
                                 {item}

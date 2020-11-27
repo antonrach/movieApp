@@ -11,6 +11,7 @@ const initialState = {
     loading: '',
     notFound: '',
     networkErr: '',
+    input: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -121,6 +122,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 networkErr: '',
+            };
+        case 'INPUT':
+            return {
+                ...state,
+                input: !state.input,
             };
         default:
             return state;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import addMovie from '../../redux/actions';
+let ready = false;
 
 
 const Header = () => {
@@ -9,6 +10,15 @@ const Header = () => {
     const dispatch = useDispatch();
     const searchBy = useSelector((state) => state.searchBy);
     const sortBy = useSelector((state) => state.sortBy);
+    const inputValue = useSelector((state) => state.input);
+
+    useEffect(() => {
+        if(ready) {
+            setValue('');
+        } else {
+            ready = true;
+        }
+    }, [inputValue])
 
     return (
         <div className="header">
@@ -17,9 +27,6 @@ const Header = () => {
                     <p className="exclamation"><span
                         onClick={() => {
                             dispatch(addMovie('', 'title', sortBy[2]));
-                            dispatch({type: 'VALUE', payload: {value: ''}});
-                            dispatch({type: 'TITLE'});
-                            setValue('');
                         }}
                     >
                         Find any movie here!
@@ -30,8 +37,6 @@ const Header = () => {
                             (e) => {
                                 e.preventDefault();
                                 dispatch(addMovie(value, searchBy[2], sortBy[2]));
-                                dispatch({type: 'VALUE', payload: {value}});
-                                setValue('');
                             }
                         }
                     >
@@ -54,7 +59,7 @@ const Header = () => {
                             className={searchBy[0]}
                             onClick={ () => {
                                 dispatch({type: 'TITLE'});
-                                setValue('');
+                                localStorage.setItem('searchBy', 'TITLE');
                             }}
                         >
                             title
@@ -64,7 +69,7 @@ const Header = () => {
                             className={searchBy[1]}
                             onClick={ () => {
                                 dispatch({type: 'GENRES'});
-                                setValue('');
+                                localStorage.setItem('searchBy', 'GENRES');
                             }}
                         >
                             genre

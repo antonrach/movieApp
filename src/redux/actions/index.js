@@ -1,14 +1,37 @@
 let loading = false;
 
-const addMovie = (value, searchBy, sortBy) => {
+const addMovie = (value, searchBy, sortBy, scroll) => {
     if(loading) {
         return (_dispatch) => {
             
         }
     }
     loading = true;
+    if(scroll) {
+        window.scrollTo(0, 0);
+    }
     return (_dispatch) => {
         _dispatch({type: 'LOADING'});
+        _dispatch({
+            type: 'VALUE',
+            payload: {value},
+        });
+        if(sortBy === 'release_date') {
+            _dispatch({type: 'DATE'});
+            localStorage.setItem('sortBy', 'release_date');
+        } else if (sortBy === 'vote_average') {
+            _dispatch({type: 'RATING'});
+            localStorage.setItem('sortBy', 'vote_average');
+        }
+        if(searchBy === 'title') {
+            _dispatch({type: 'TITLE'});
+            localStorage.setItem('searchBy', 'title');
+        } else if (searchBy === 'genres') {
+            _dispatch({type: 'GENRES'});
+            localStorage.setItem('searchBy', 'genres');
+        }
+        _dispatch({type: 'INPUT'});
+        localStorage.setItem('searchValue', value);
         fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&limit=12`)
             .then(res => res.json())
             .then(data => {
