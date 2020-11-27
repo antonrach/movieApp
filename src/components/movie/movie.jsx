@@ -1,6 +1,14 @@
 import React from 'react';
+import addMovie from '../../redux/actions';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Movie = (props) => {
+
+    const value = useSelector((state) => state.value);
+    const sortBy = useSelector((state) => state.sortBy);
+    const searchBy = useSelector((state) => state.searchBy);
+
+    const dispatch = useDispatch();
     return (
         <div className="movie">
             <div className="movie-cont">
@@ -8,7 +16,7 @@ const Movie = (props) => {
                     <div
                         className="poster"
                         style={{
-                            backgroundImage: `url(${props.moviePoster})`,
+                            backgroundImage: `url(${ props.moviePoster })`,
                             backgroundSize: 'cover',
                         }}
                     ></div>
@@ -22,6 +30,12 @@ const Movie = (props) => {
                             <p
                                 className="genre"
                                 key={id}
+                                onClick={() => {
+                                    window.scrollTo(0, 0);
+                                    dispatch({type: 'GENRES'});
+                                    dispatch(addMovie(item, 'genres', sortBy[2]));
+                                    dispatch({type: 'VALUE', payload: {value: item}});
+                                }}
                             >
                                 {item}
                             </p>

@@ -24,8 +24,9 @@ const MovieArea = () => {
                             type="button"
                             className={sortBy[0]}
                             onClick={() => {
+                                const newSort = 'release_date';
+                                dispatch(addMovie(value, searchBy[2], newSort));
                                 dispatch({type: 'DATE'});
-                                dispatch(addMovie(value, searchBy[2], sortBy[2]));
                             }}
                         >
                             Release date
@@ -34,8 +35,9 @@ const MovieArea = () => {
                             type="button"
                             className={sortBy[1]}
                             onClick={() => {
+                                const newSort = 'vote_average';
+                                dispatch(addMovie(value, searchBy[2], newSort));
                                 dispatch({type: 'RATING'});
-                                dispatch(addMovie(value, searchBy[2], sortBy[2]));
                             }}
                         >
                             Rating

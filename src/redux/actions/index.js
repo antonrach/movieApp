@@ -6,12 +6,33 @@ const addMovie = (value, searchBy, sortBy) => {
                 _dispatch({
                     type: 'CLEAR',
                 });
-                data.data.forEach(item => {
-                    _dispatch({
-                        type: 'ADD_MOVIE',
-                        payload: item,
-                    })
-                });
+                async function imgLoad() {
+                    for (let item of data.data) {
+                        function p() {
+                            return new Promise(res => {
+                                const img = new Image();
+                                img.src = item.poster_path;
+                                img.onload = (() => {
+                                    _dispatch({
+                                        type: 'ADD_MOVIE',
+                                        payload: item,
+                                    })
+                                    res();
+                                })
+                                img.onerror = (() => {
+                                    _dispatch({
+                                        type: 'ADD_MOVIE_IMG',
+                                        payload: item,
+                                    })
+                                    res();
+                                })
+                            })
+                        }
+                        await p();
+
+                    }
+                }
+                imgLoad();
                 _dispatch({
                     type: 'NUMBER',
                     payload: data,
@@ -20,5 +41,7 @@ const addMovie = (value, searchBy, sortBy) => {
             })
     }
 }
+
+
 
 export default addMovie;

@@ -16,6 +16,7 @@ const MovieRows = () => {
                         movieYear={item.movieYear}
                         movieGenres={item.movieGenre}
                         moviePoster={item.moviePoster}
+                        defaultImg={item.defaultImg}
                     />
                 ))
             }

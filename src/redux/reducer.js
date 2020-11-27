@@ -24,6 +24,19 @@ const reducer = (state = initialState, action) => {
                     }
                 ]
             };
+            case 'ADD_MOVIE_IMG':
+                return {
+                    ...state,
+                    data: [
+                        ...state.data,
+                        {
+                            movieName: action.payload.title,
+                            movieYear: action.payload.release_date.slice(0, 4),
+                            movieGenre: action.payload.genres,
+                            moviePoster: `./img/film-strip-symbol_318-9359.jpg`,
+                        }
+                    ]
+                };
         case 'CLEAR': 
             return {
                 ...state,
@@ -44,22 +57,22 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 searchBy: ['', ' _active', 'genres'],
-            }
+            };
         case 'RATING':
             return {
                 ...state,
                 sortBy: ['', ' _active', 'vote_average'],
-            }
+            };
         case 'DATE':
             return {
                 ...state,
                 sortBy: [' _active', '', 'release_date'],
-            }
+            };
         case 'VALUE':
             return {
                 ...state,
                 value: action.payload.value,
-            }
+            };
         default:
             return state;
             
