@@ -8,14 +8,25 @@ const addMovie = (value, searchBy, sortBy) => {
     }
     loading = true;
     return (_dispatch) => {
+        _dispatch({type: 'LOADING'});
         fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&limit=12`)
             .then(res => res.json())
             .then(data => {
                 _dispatch({
                     type: 'CLEAR',
                 });
+                _dispatch({type: 'LOADED'});
+                _dispatch({
+                    type: 'FOUND',
+                });
+                _dispatch({
+                    type: 'SUCCESS',
+                });
                 if(+data.total === 0) {
                     loading = false;
+                    _dispatch({
+                        type: 'NOT_FOUND'
+                    });
                 }
                 async function imgLoad() {
                     for (let [id, item] of data.data.entries()) {
@@ -69,6 +80,22 @@ const addMovie = (value, searchBy, sortBy) => {
             })
             .catch(() => {
                 loading = false;
+                _dispatch({
+                    type: 'CLEAR',
+                });
+                _dispatch({type: 'LOADED'});
+                _dispatch({
+                    type: 'FOUND',
+                });
+                _dispatch({
+                    type: 'RESULTS_HIDE',
+                });
+                _dispatch({
+                    type: 'NUMBER_HIDE',
+                });
+                _dispatch({
+                    type: 'ERROR',
+                });
             })
     }
 }

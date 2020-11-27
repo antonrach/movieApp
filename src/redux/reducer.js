@@ -8,6 +8,9 @@ const initialState = {
     sortBy: [' _active', '', 'release_date'],
     value: '',
     resultsFor: ['', ''],
+    loading: '',
+    notFound: '',
+    networkErr: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -34,7 +37,7 @@ const reducer = (state = initialState, action) => {
                             movieName: action.payload.title,
                             movieYear: action.payload.release_date.slice(0, 4),
                             movieGenre: action.payload.genres,
-                            moviePoster: `./img/film-strip-symbol_318-9359.jpg`,
+                            moviePoster: `./img/cinema.jpg`,
                         }
                     ]
                 };
@@ -48,6 +51,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 total: action.payload.total,
                 hideNum: ' _active',
+            };
+        case 'NUMBER_HIDE':
+            return {
+                ...state,
+                hideNum: '',
             };
         case 'TITLE':
             return {
@@ -84,10 +92,40 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 resultsFor: ['', ''],
             };
+        case 'LOADING':
+            return {
+                ...state,
+                loading: ' _active',
+            };
+        case 'LOADED':
+            return {
+                ...state,
+                loading: '',
+            };
+        case 'NOT_FOUND':
+            return {
+                ...state,
+                notFound: ' _active',
+            };
+        case 'FOUND':
+            return {
+                ...state,
+                notFound: '',
+            };
+        case 'ERROR':
+            return {
+                ...state,
+                networkErr: ' _active',
+            };
+        case 'SUCCESS':
+            return {
+                ...state,
+                networkErr: '',
+            };
         default:
             return state;
             
-    }
-}
+    };
+};
 
 export default reducer;

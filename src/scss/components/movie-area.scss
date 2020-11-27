@@ -6,6 +6,7 @@
         min-height: 55vh;
         padding-top: 30px;
         padding-bottom: 80px;
+        position: relative;
     }
 }
 .results-for {
@@ -88,4 +89,50 @@
     grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
     grid-row-gap: 80px;
     margin-bottom: 0;
+}
+
+.loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .85);
+    display: none;
+    padding-top: 25vh;
+    z-index: 1;
+    & > p {
+        font-family: cursive;
+        text-align: center;
+        font-size: 10vh;
+    }
+    &._active {
+        display: block;
+    }
+}
+
+.not-found {
+    font-family: cursive;
+    font-size: 5vh;
+    text-align: center;
+    @include center;
+    transform: translate(-50%, 0%);
+    color: $dark-red;
+    display: none;
+    &.error {
+        transform: translate(-50%, -50%);
+        & > p {
+            font-size: 7vh;
+            transition: .2s;
+            font-weight: bold;
+            &:hover {
+                cursor: pointer;
+                color: $middle-gray;
+                transition: .2s;
+            }
+        }
+    }
+    &._active {
+        display: block;
+    }
 }

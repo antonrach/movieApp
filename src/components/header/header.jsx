@@ -14,7 +14,16 @@ const Header = () => {
         <div className="header">
             <div className="darkheader">
                 <div className="container">
-                    <p className="exclamation">Find any movie here!</p>
+                    <p className="exclamation"><span
+                        onClick={() => {
+                            dispatch(addMovie('', 'title', sortBy[2]));
+                            dispatch({type: 'VALUE', payload: {value: ''}});
+                            dispatch({type: 'TITLE'});
+                            setValue('');
+                        }}
+                    >
+                        Find any movie here!
+                    </span></p>
                     <form
                         className="search-movie"
                         onSubmit={
