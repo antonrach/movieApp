@@ -1,6 +1,6 @@
 let loading = false;
 
-const addMovie = (value, searchBy, sortBy, scroll) => {
+const addMovie = (value, searchBy, sortBy, scroll, modalClose) => {
     if(loading) {
         return (_dispatch) => {
             
@@ -31,6 +31,9 @@ const addMovie = (value, searchBy, sortBy, scroll) => {
             localStorage.setItem('searchBy', 'genres');
         }
         _dispatch({type: 'INPUT'});
+        if(modalClose) {
+            _dispatch({type: 'CLOSE_MODAL'});
+        }
         localStorage.setItem('searchValue', value);
         fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&limit=12`)
             .then(res => res.json())

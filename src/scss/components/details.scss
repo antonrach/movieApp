@@ -1,0 +1,127 @@
+@import '../abstracts/module';
+
+.amodal .details {
+    z-index: -2;
+    opacity: 0;
+}
+.amodal._active .details {
+    transition: .5s;
+    opacity: 1;
+    z-index: 2;
+}
+.amodal._active .modal-window {
+    transition: .5s;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.details {
+    @include fixed;
+    background-color: rgba(0, 0, 0, .75);
+    transition: .5s;
+}
+
+.detcont {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
+.modal-window {
+    @include center;
+    transform: translate(-50%, -50%) scale(0);
+    width: 700px;
+    background-color: black;
+    border: 2px white solid;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 30px;
+    transition: .5s;
+    & > h2 {
+        font-family: cursive;
+        font-size: 36px;
+        font-weight: normal;
+        margin-bottom: 30px;
+    }
+}
+
+.close-btn {
+    font-size: 38px;
+    font-weight: bold;
+    line-height: 1;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px white solid;
+    position: relative;
+    margin-left: auto;
+    background-color: black;
+    transform: translate(75%, -50%);
+    transition: .2s;
+    margin-bottom: -20px;
+    & > p {
+        @include center;
+    }
+    &:hover {
+        cursor: pointer;
+        background-color: $dark-red;
+        transition: .2s;
+        transform: translate(75%, -50%) scale(1.2);
+    }
+}
+
+.genre-modal {
+    text-transform: uppercase;
+    @include arial;
+    font-size: 16px;
+    margin-right: 20px;
+    color: $middle-gray;
+    transition: .2s;
+    &:last-of-type {
+        margin-right: 0;
+    }
+    &:hover {
+        cursor: pointer;
+        color: $light-green-blue;
+        transition: .2s;
+    }
+}
+.genres-modal {
+    margin-bottom: 25px;
+}
+
+.description {
+    @include arial;
+    font-size: 18px;
+    color: rgba(255, 255, 255, .9);
+    margin-bottom: 25px;
+}
+.release-date {
+    font-family: cursive;
+    font-size: 20px;
+    color: $light-gray;
+    margin-bottom: 20px;
+    & > span {
+        color: white;
+    }
+    &.rating {
+        color: $light-green-blue;
+        font-size: 24px;
+        margin-bottom: 0;
+        text-transform: uppercase;
+        & > span {
+            color: $light-green-blue;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        &.unknown {
+            color: $dark-red;
+            font-weight: bold;
+            font-size: 26px;
+            & > span {
+                color: $dark-red;
+                font-weight: bold;
+                font-size: 26px;
+            }
+        }
+    }
+}

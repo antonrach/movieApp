@@ -12,6 +12,15 @@ const initialState = {
     notFound: '',
     networkErr: '',
     input: false,
+    modal: {
+        open: '',
+        title: '',
+        genres: [],
+        description: '',
+        date: '',
+        budget: '',
+        rating: '',
+    },
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +35,10 @@ const reducer = (state = initialState, action) => {
                         movieYear: action.payload.release_date.slice(0, 4),
                         movieGenre: action.payload.genres,
                         moviePoster: action.payload.poster_path,
+                        movieDesc: action.payload.overview,
+                        movieDate: action.payload.release_date,
+                        movieBudget: action.payload.budget,
+                        movieRating: action.payload.vote_average,
                     }
                 ]
             };
@@ -39,6 +52,10 @@ const reducer = (state = initialState, action) => {
                             movieYear: action.payload.release_date.slice(0, 4),
                             movieGenre: action.payload.genres,
                             moviePoster: `./img/cinema.jpg`,
+                            movieDesc: action.payload.overview,
+                            movieDate: action.payload.release_date,
+                            movieBudget: action.payload.budget,
+                            movieRating: action.payload.vote_average,
                         }
                     ]
                 };
@@ -128,6 +145,28 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 input: !state.input,
             };
+        case 'MODAL':
+            return {
+                ...state,
+                modal: {
+                    open: ' _active',
+                    title: action.payload.title,
+                    genres: action.payload.genres,
+                    description: action.payload.description,
+                    date: action.payload.date,
+                    budget: action.payload.budget,
+                    rating: action.payload.rating,
+
+                },
+            };
+        case 'CLOSE_MODAL':
+            return {
+                ...state,
+                modal: {
+                    ...state.modal,
+                    open: '',
+                }
+            }
         default:
             return state;
             

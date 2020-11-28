@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Movie from '../movie';
+import Details from '../details';
 import MovieRows from '../movieRows';
 import { useSelector, useDispatch } from 'react-redux';
 import addMovie from '../../redux/actions';
@@ -36,6 +36,7 @@ const MovieArea = () => {
     return (
         <div className="movie-area">
             <div className="container">
+                <Details />
                 <div className={"loading" + loading}>
                     <p>Loading...</p>
                 </div>

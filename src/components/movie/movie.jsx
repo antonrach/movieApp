@@ -12,7 +12,22 @@ const Movie = (props) => {
     return (
         <div className="movie">
             <div className="movie-cont">
-                <div className="tandp">
+                <div
+                    className="tandp"
+                    onClick={() => {
+                        dispatch({
+                            type: 'MODAL',
+                            payload: {
+                                title: props.movieTittle,
+                                genres: props.movieGenres,
+                                description: props.movieDesc,
+                                date: props.movieDate,
+                                budget: props.movieBudget,
+                                rating: props.moviemovieRating,
+                            },
+                        })
+                    }}
+                >
                     <div
                         className="poster"
                         style={{
