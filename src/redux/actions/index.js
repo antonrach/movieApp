@@ -1,10 +1,13 @@
 let loading = false;
 
-const addMovie = (value, searchBy, sortBy, scroll, modalClose) => {
+const addMovie = (value, searchBy, sortBy, scroll, modalClose, offset) => {
     if(loading) {
         return (_dispatch) => {
             
         }
+    }
+    if(!offset) {
+        offset = 0;
     }
     loading = true;
     if(scroll) {
@@ -16,6 +19,11 @@ const addMovie = (value, searchBy, sortBy, scroll, modalClose) => {
             type: 'VALUE',
             payload: {value},
         });
+        _dispatch({
+            type: 'OFFSET',
+            payload: {offset},
+        });
+        localStorage.setItem('offset', offset.toString());
         if(sortBy === 'release_date') {
             _dispatch({type: 'DATE'});
             localStorage.setItem('sortBy', 'release_date');
@@ -35,7 +43,7 @@ const addMovie = (value, searchBy, sortBy, scroll, modalClose) => {
             _dispatch({type: 'CLOSE_MODAL'});
         }
         localStorage.setItem('searchValue', value);
-        fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&limit=12`)
+        fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&offset=${offset * 12}&limit=12`)
             .then(res => res.json())
             .then(data => {
                 _dispatch({

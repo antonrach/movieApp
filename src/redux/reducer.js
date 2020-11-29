@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 const initialState = {
     data: [],
     total: 0,
+    offset: 1,
     hideNum: '',
     searchBy: [' _active', '', 'title'],
     sortBy: [' _active', '', 'release_date'],
@@ -69,6 +70,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 total: action.payload.total,
                 hideNum: ' _active',
+            };
+        case 'OFFSET':
+            return {
+                ...state,
+                offset: action.payload.offset,
             };
         case 'NUMBER_HIDE':
             return {

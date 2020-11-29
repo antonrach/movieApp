@@ -88,7 +88,7 @@
     display: grid;
     grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
     grid-row-gap: 80px;
-    margin-bottom: 0;
+    margin-bottom: 40px;
 }
 
 .loading {
@@ -134,5 +134,51 @@
     }
     &._active {
         display: block;
+    }
+}
+
+.pages {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.pagecont {
+    display: flex;
+}
+
+.page-num {
+    @include arial;
+    text-align: center;
+    font-size: 28px;
+    transition: .2s;
+    min-width: 40px;
+    padding-left: 3px;
+    padding-right: 3px;
+    line-height: 1.8;
+    margin-right: 6px;
+    &:last-of-type {
+        margin-right: 0;
+    }
+    &.first {
+        margin-right: 6px;
+    }
+    &.sec {
+        margin-left: 6px;
+    }
+    &:hover {
+        cursor: pointer;
+        color: $light-green-blue;
+        transition: .2s;
+    }
+    &._active {
+        background-color: $dark-green-blue;
+        color: white;
+        border: 2px $darkgray solid;
+        &:hover {
+            cursor: pointer;
+            color: $light-green-blue;
+            transition: .2s;
+        }
     }
 }
