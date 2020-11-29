@@ -114,12 +114,12 @@ const MovieArea = () => {
                                     <div key={id + 10} className="pagecont">
                                         <span
                                             key={id}
-                                            className="page-num"
+                                            className="page-num un"
                                             onClick={() => {
                                                 dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, 0));
                                             }}
                                         >
-                                            &#60;
+                                            start
                                         </span>
                                         <span
                                             key={id + 1}
@@ -160,12 +160,12 @@ const MovieArea = () => {
                                         </span>
                                         <span
                                             key={id + 2}
-                                            className="page-num"
+                                            className="page-num un"
                                             onClick={() => {
                                                 dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, (totalPages - 1)));
                                             }}
                                         >
-                                            &#62;
+                                            end
                                         </span>
                                     </div>
                                 )
