@@ -1,48 +1,16 @@
 let loading = false;
 
-const addMovie = (value, searchBy, sortBy, scroll, modalClose, offset) => {
+export const addMovie = (value, searchBy, sortBy, offset) => {
     if(loading) {
         return (_dispatch) => {
-            
+            location.reload() 
         }
-    }
-    if(!offset) {
-        offset = 0;
-    }
-    loading = true;
-    if(scroll) {
-        window.scrollTo(0, 0);
     }
     return (_dispatch) => {
+        _dispatch(mainDispatcher(value, searchBy, sortBy, offset));
+        
         _dispatch({type: 'LOADING'});
-        _dispatch({
-            type: 'VALUE',
-            payload: {value},
-        });
-        _dispatch({
-            type: 'OFFSET',
-            payload: {offset},
-        });
-        localStorage.setItem('offset', offset.toString());
-        if(sortBy === 'release_date') {
-            _dispatch({type: 'DATE'});
-            localStorage.setItem('sortBy', 'release_date');
-        } else if (sortBy === 'vote_average') {
-            _dispatch({type: 'RATING'});
-            localStorage.setItem('sortBy', 'vote_average');
-        }
-        if(searchBy === 'title') {
-            _dispatch({type: 'TITLE'});
-            localStorage.setItem('searchBy', 'title');
-        } else if (searchBy === 'genres') {
-            _dispatch({type: 'GENRES'});
-            localStorage.setItem('searchBy', 'genres');
-        }
         _dispatch({type: 'INPUT'});
-        if(modalClose) {
-            _dispatch({type: 'CLOSE_MODAL'});
-        }
-        localStorage.setItem('searchValue', value);
         fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&offset=${offset * 12}&limit=12`)
             .then(res => res.json())
             .then(data => {
@@ -134,6 +102,39 @@ const addMovie = (value, searchBy, sortBy, scroll, modalClose, offset) => {
     }
 }
 
+const mainDispatcher = (value, searchBy, sortBy, offset) => {
+    /*if(loading) {
+        return (_dispatch) => {
+            
+        }
+    }*/
+    loading = true;
+    if(!offset) {
+        offset = 0;
+    }
+    return (_dispatch) => {
+        _dispatch({
+            type: 'VALUE',
+            payload: {value},
+        });
+        _dispatch({
+            type: 'OFFSET',
+            payload: {offset},
+        });
+        if(sortBy === 'release_date') {
+            _dispatch({type: 'DATE'});
+        } else if (sortBy === 'vote_average') {
+            _dispatch({type: 'RATING'});
+        }
+        if(searchBy === 'title') {
+            _dispatch({type: 'TITLE'});
+        } else if (searchBy === 'genres') {
+            _dispatch({type: 'GENRES'});
+        }
+        window.scrollTo(0, 0);
+    }
+}
 
 
-export default addMovie;
+
+export default mainDispatcher;

@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 const initialState = {
     data: [],
     total: 0,
-    offset: 1,
+    offset: 0,
     hideNum: '',
     searchBy: [' _active', '', 'title'],
     sortBy: [' _active', '', 'release_date'],

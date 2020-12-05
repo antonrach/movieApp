@@ -59,6 +59,10 @@
         cursor: pointer;
         color: $light-green-blue;
     }
+    & > a {
+        @include link;
+        width: 100%;
+    }
 }
 
 .year {

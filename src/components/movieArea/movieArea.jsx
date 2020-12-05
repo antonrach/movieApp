@@ -2,8 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Details from '../details';
 import MovieRows from '../movieRows';
 import { useSelector, useDispatch } from 'react-redux';
-import addMovie from '../../redux/actions';
+import {
+    BrowserRouter,
+    Route,
+    Switch,
+    Redirect,
+  } from 'react-router-dom';
+import mainDispatcher from '../../redux/actions';
 import pageCreator from '../../utils/pageCreator';
+import Pagination from '../pagination';
+import { Link } from 'react-router-dom';
 
 const MovieArea = () => {
 
@@ -19,17 +27,8 @@ const MovieArea = () => {
     const networkErr = useSelector((state) => state.networkErr);
     const dispatch = useDispatch();
 
-    const totalPages = Math.ceil(num / 12);
 
-    const [newPages, setNP] = useState([]);
-
-    useEffect(() => {
-        const pages = [];
-        pageCreator(pages, totalPages, (offset + 1));
-        setNP(pages);
-    }, [num, offset]);
-
-    useEffect(() => {
+    /*useEffect(() => {
         if(
             localStorage.getItem('searchValue') !== null &&
             localStorage.getItem('sortBy') !== null &&
@@ -41,11 +40,9 @@ const MovieArea = () => {
             const newSearch = localStorage.getItem('searchBy');
             const newOffset = localStorage.getItem('offset');
     
-            dispatch(addMovie(newValue, newSearch, newSort, false, false, +newOffset));
-        } else {
-            dispatch(addMovie('', searchBy[2], sortBy[2]));
+            dispatch(mainDispatcher(newValue, newSearch, newSort, false, false, +newOffset));
         }
-    }, []);
+    }, []);*/
     
     return (
         <div className="movie-area">
@@ -60,7 +57,7 @@ const MovieArea = () => {
                     Please, check your Internet connection.
                     <p
                         onClick={() => {
-                            dispatch(addMovie(value, searchBy[2], sortBy[2], false, false, offset));
+                            dispatch(mainDispatcher(value, searchBy[2], sortBy[2], false, false, offset));
                         }}
                     >
                         CLICK TO RETRY
@@ -74,131 +71,33 @@ const MovieArea = () => {
                         <button
                             type="button"
                             className={sortBy[0]}
-                            onClick={() => {
+                            /*onClick={() => {
                                 const newSort = 'release_date';
-                                dispatch(addMovie(value, searchBy[2], newSort));
-                            }}
+                                dispatch(mainDispatcher(value, searchBy[2], newSort));
+                            }}*/
                         >
-                            Release date
+                            <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=release_date`} >
+                                Release date
+                            </Link>
                         </button>
                         <button
                             type="button"
                             className={sortBy[1]}
-                            onClick={() => {
+                            /*onClick={() => {
                                 const newSort = 'vote_average';
-                                dispatch(addMovie(value, searchBy[2], newSort));
-                            }}
+                                dispatch(mainDispatcher(value, searchBy[2], newSort));
+                            }}*/
                         >
-                            Rating
+                            <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=vote_average`} >
+                                Rating
+                            </Link>
                         </button>
                     </div>
                 </div>
-                <MovieRows />
-                <div className="pages">
-                    {newPages.map((item, id) => {
-                        if(id === 0) {
-                            if(item === (offset + 1)) {
-                                return (
-                                    <span
-                                        key={id + 1}
-                                        className="page-num _active"
-                                        onClick={() => {
-                                            dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, 0));
-                                        }}
-                                    >
-                                        {item}
-                                    </span>
-                                )
-                            } else {
-                                return (
-                                    <div key={id + 10} className="pagecont">
-                                        <span
-                                            key={id}
-                                            className="page-num un"
-                                            onClick={() => {
-                                                dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, 0));
-                                            }}
-                                        >
-                                            start
-                                        </span>
-                                        <span
-                                            key={id + 1}
-                                            className="page-num first"
-                                            onClick={() => {
-                                                dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                            }}
-                                        >
-                                            {item}
-                                        </span>
-                                    </div>
-                                )
-                            }
-                        } else if (id === (newPages.length - 1)) {
-                            if(item === (offset + 1)) {
-                                return (
-                                        <span
-                                            key={id + 1}
-                                            className="page-num _active"
-                                            onClick={() => {
-                                                dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                            }}
-                                        >
-                                            {item}
-                                        </span>
-                                )
-                            } else {
-                                return (
-                                    <div key={id + 10} className="pagecont">
-                                        <span
-                                            key={id + 1}
-                                            className="page-num sec"
-                                            onClick={() => {
-                                                dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                            }}
-                                        >
-                                            {item}
-                                        </span>
-                                        <span
-                                            key={id + 2}
-                                            className="page-num un"
-                                            onClick={() => {
-                                                dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, (totalPages - 1)));
-                                            }}
-                                        >
-                                            end
-                                        </span>
-                                    </div>
-                                )
-                            }
-                        } else {
-                            if(item === (offset + 1)) {
-                                return (
-                                <span
-                                    key={id + 1}
-                                    className="page-num _active"
-                                    onClick={() => {
-                                        dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                    }}
-                                >
-                                    {item}
-                                </span>
-                                )
-                            } else {
-                                return (
-                                    <span
-                                        key={id + 1}
-                                        className="page-num"
-                                        onClick={() => {
-                                            dispatch(addMovie(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                        }}
-                                    >
-                                        {item}
-                                    </span> 
-                                )
-                            }
-                        }        
-                    })}
-                </div>
+                <Switch >
+                    <Route exact path="/" component={MovieRows} />
+                </Switch>
+                <Pagination />
             </div>
         </div>
     )

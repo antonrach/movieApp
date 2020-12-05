@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import addMovie from '../../redux/actions';
+import { Link } from 'react-router-dom';
 
 const Details = () => {
 
@@ -32,10 +32,14 @@ const Details = () => {
                                     className="genre-modal"
                                     key={id}
                                     onClick={() => {
-                                        dispatch(addMovie(item, 'genres', sortBy[2], true, true));
+                                        dispatch({
+                                           type: 'CLOSE_MODAL', 
+                                        });
                                     }}
                                 >
-                                    {item}
+                                    <Link to={`/?value=${item}&offset=0&searchBy=genres&sortBy=${sortBy[2]}`} >
+                                        {item}
+                                    </Link>
                                 </span>
                             ))}
                         </div>

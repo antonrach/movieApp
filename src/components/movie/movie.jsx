@@ -1,6 +1,7 @@
 import React from 'react';
-import addMovie from '../../redux/actions';
+import mainDispatcher from '../../redux/actions';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Movie = (props) => {
 
@@ -45,11 +46,13 @@ const Movie = (props) => {
                             <p
                                 className="genre"
                                 key={id}
-                                onClick={() => {
-                                    dispatch(addMovie(item, 'genres', sortBy[2], true));
-                                }}
+                                /*onClick={() => {
+                                    dispatch(mainDispatcher(item, 'genres', sortBy[2], true));
+                                }}*/
                             >
-                                {item}
+                                <Link to={`/?value=${item}&offset=0&searchBy=genres&sortBy=${sortBy[2]}`} >
+                                    {item}
+                                </Link>
                             </p>
                         ))}
                     </div>

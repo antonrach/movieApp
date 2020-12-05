@@ -63,11 +63,7 @@
         background-color: rgba(255,255,255,0.3);
         color: white;
         margin-right: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
         text-transform: uppercase;
-        padding-top: 5px;
-        padding-bottom: 5px;
         font-weight: bold;
         &:last-of-type {
             margin-right: 0;
@@ -81,6 +77,14 @@
             background-color: $buttongo;
             color: #ffffff;
             transition: .2s;
+        }
+        & > a {
+            @include link;
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 5px;
+            padding-bottom: 5px;
         }
     }
 }
@@ -156,11 +160,6 @@
     @include arial;
     text-align: center;
     font-size: 28px;
-    transition: .2s;
-    min-width: 40px;
-    padding-left: 3px;
-    padding-right: 3px;
-    line-height: 1.8;
     margin-right: 6px;
     &:last-of-type {
         margin-right: 0;
@@ -171,25 +170,26 @@
     &.sec {
         margin-left: 6px;
     }
-    &:hover {
-        cursor: pointer;
-        color: $light-green-blue;
-        transition: .2s;
-    }
     &._active {
         background-color: $dark-green-blue;
         color: white;
         border: 2px $darkgray solid;
-        &:hover {
-            cursor: pointer;
-            color: $light-green-blue;
-            transition: .2s;
-        }
     }
     &.un {
         color: $middle-gray;
         font-size: 16px;
         transition: .2s;
+    }
+    & > a {
+        color: inherit;
+        text-decoration: none;
+        padding-left: 3px;
+        padding-right: 3px;
+        min-width: 40px;
+        transition: .2s;
+        display: inline-block;
+        min-width: 40px;
+        line-height: 1.8;
         &:hover {
             cursor: pointer;
             color: $light-green-blue;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import addMovie from '../../redux/actions';
+import mainDispatcher from '../../redux/actions';
+import { Link } from 'react-router-dom';
 let ready = false;
 
 
@@ -26,17 +27,21 @@ const Header = () => {
                 <div className="container">
                     <p className="exclamation"><span
                         onClick={() => {
-                            dispatch(addMovie('', 'title', sortBy[2]));
+                            //dispatch(mainDispatcher('', 'title', sortBy[2]));
                         }}
                     >
-                        Find any movie here!
+                        <Link to={`/?value=&offset=0&searchBy=title&sortBy=${sortBy[2]}`} >
+                            Find any movie here!
+                        </Link>
+                        
                     </span></p>
                     <form
                         className="search-movie"
                         onSubmit={
                             (e) => {
                                 e.preventDefault();
-                                dispatch(addMovie(value, searchBy[2], sortBy[2]));
+                                location.href = `/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`
+                                //dispatch(mainDispatcher(value, searchBy[2], sortBy[2]));
                             }
                         }
                     >
