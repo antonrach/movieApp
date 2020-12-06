@@ -1,6 +1,6 @@
 let loading = false;
 
-export const addMovie = (value, searchBy, sortBy, offset) => {
+const addMovie = (value, searchBy, sortBy, offset) => {
     if(loading) {
         return (_dispatch) => {
             location.reload() 
@@ -8,9 +8,6 @@ export const addMovie = (value, searchBy, sortBy, offset) => {
     }
     return (_dispatch) => {
         _dispatch(mainDispatcher(value, searchBy, sortBy, offset));
-        
-        _dispatch({type: 'LOADING'});
-        _dispatch({type: 'INPUT'});
         fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&offset=${offset * 12}&limit=12`)
             .then(res => res.json())
             .then(data => {
@@ -24,45 +21,22 @@ export const addMovie = (value, searchBy, sortBy, offset) => {
                 _dispatch({
                     type: 'SUCCESS',
                 });
+                if(data.data.length === 0 && +data.total !== 0) {
+                    location.href = `/?value=${value}&offset=0&searchBy=${searchBy}&sortBy=${sortBy}`;
+                    return
+                }
                 if(+data.total === 0) {
                     loading = false;
                     _dispatch({
                         type: 'NOT_FOUND'
                     });
                 }
-                async function imgLoad() {
-                    for (let [id, item] of data.data.entries()) {
-                        function p() {
-                            return new Promise(res => {
-                                const img = new Image();
-                                img.src = item.poster_path;
-                                img.onload = (() => {
-                                    _dispatch({
-                                        type: 'ADD_MOVIE',
-                                        payload: item,
-                                    })
-                                    if(id === (data.data.length - 1)) {
-                                        loading = false;
-                                    }
-                                    res();
-                                })
-                                img.onerror = (() => {
-                                    _dispatch({
-                                        type: 'ADD_MOVIE_IMG',
-                                        payload: item,
-                                    })
-                                    if(id === (data.data.length - 1)) {
-                                        loading = false;
-                                    }
-                                    res();
-                                })
-                            })
-                        }
-                        await p();
-
-                    }
-                }
-                imgLoad();
+                data.data.forEach(item => {
+                    _dispatch({
+                        type: 'ADD_MOVIE',
+                        payload: item,
+                    })
+                });
                 _dispatch({
                     type: 'NUMBER',
                     payload: data,
@@ -79,6 +53,7 @@ export const addMovie = (value, searchBy, sortBy, offset) => {
                         type: 'RESULTS_HIDE',
                     })
                 }
+                loading = false;
             })
             .catch(() => {
                 loading = false;
@@ -103,11 +78,6 @@ export const addMovie = (value, searchBy, sortBy, offset) => {
 }
 
 const mainDispatcher = (value, searchBy, sortBy, offset) => {
-    /*if(loading) {
-        return (_dispatch) => {
-            
-        }
-    }*/
     loading = true;
     if(!offset) {
         offset = 0;
@@ -132,9 +102,11 @@ const mainDispatcher = (value, searchBy, sortBy, offset) => {
             _dispatch({type: 'GENRES'});
         }
         window.scrollTo(0, 0);
+        _dispatch({type: 'LOADING'});
+        _dispatch({type: 'INPUT'});
     }
 }
 
 
 
-export default mainDispatcher;
+export default addMovie;

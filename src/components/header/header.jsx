@@ -26,9 +26,6 @@ const Header = () => {
             <div className="darkheader">
                 <div className="container">
                     <p className="exclamation"><span
-                        onClick={() => {
-                            //dispatch(mainDispatcher('', 'title', sortBy[2]));
-                        }}
                     >
                         <Link to={`/?value=&offset=0&searchBy=title&sortBy=${sortBy[2]}`} >
                             Find any movie here!
@@ -41,7 +38,6 @@ const Header = () => {
                             (e) => {
                                 e.preventDefault();
                                 location.href = `/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`
-                                //dispatch(mainDispatcher(value, searchBy[2], sortBy[2]));
                             }
                         }
                     >

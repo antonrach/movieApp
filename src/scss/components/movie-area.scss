@@ -137,6 +137,9 @@
                 color: $middle-gray;
                 transition: .2s;
             }
+            & > a {
+                @include link;
+            }
         }
     }
     &._active {

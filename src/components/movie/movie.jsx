@@ -1,5 +1,4 @@
-import React from 'react';
-import mainDispatcher from '../../redux/actions';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +8,20 @@ const Movie = (props) => {
     const sortBy = useSelector((state) => state.sortBy);
     const searchBy = useSelector((state) => state.searchBy);
 
+    const [bgImg, setBgImg] = useState(''); 
+
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const img = new Image();
+        img.src = props.moviePoster;
+        img.onload = () => {
+            setBgImg(props.moviePoster);
+        }
+        img.onerror = () => {
+            setBgImg(`./img/cinema.jpg`);
+        }
+    }, [])
     return (
         <div className="movie">
             <div className="movie-cont">
@@ -32,7 +44,7 @@ const Movie = (props) => {
                     <div
                         className="poster"
                         style={{
-                            backgroundImage: `url(${ props.moviePoster })`,
+                            backgroundImage: `url(${ bgImg })`,
                             backgroundSize: 'cover',
                         }}
                     ></div>
@@ -46,9 +58,6 @@ const Movie = (props) => {
                             <p
                                 className="genre"
                                 key={id}
-                                /*onClick={() => {
-                                    dispatch(mainDispatcher(item, 'genres', sortBy[2], true));
-                                }}*/
                             >
                                 <Link to={`/?value=${item}&offset=0&searchBy=genres&sortBy=${sortBy[2]}`} >
                                     {item}

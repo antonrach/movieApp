@@ -14,7 +14,7 @@ const initialState = {
     networkErr: '',
     input: false,
     modal: {
-        open: '',
+        open: false,
         title: '',
         genres: [],
         description: '',
@@ -156,7 +156,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 modal: {
-                    open: ' _active',
+                    open: true,
                     title: action.payload.title,
                     genres: action.payload.genres,
                     description: action.payload.description,
@@ -171,7 +171,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 modal: {
                     ...state.modal,
-                    open: '',
+                    open: false,
                 }
             }
         default:

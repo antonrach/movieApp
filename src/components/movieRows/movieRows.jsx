@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Movie from '../movie';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMovie } from '../../redux/actions';
+import addMovie from '../../redux/actions';
 import { parse } from 'query-string';
 import { useLocation, useHistory } from 'react-router-dom';
 

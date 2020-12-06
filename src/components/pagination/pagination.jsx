@@ -21,7 +21,6 @@ const Pagination = () => {
     useEffect(() => {
         const pages = [];
         pageCreator(pages, totalPages, (offset + 1));
-        console.log(pages, totalPages, (offset + 1));
         setNP(pages);
     }, [num, offset]);
 
@@ -34,9 +33,6 @@ const Pagination = () => {
                                 <span
                                     className="page-num _active"
                                     key={id + 1}
-                                    /*onClick={() => {
-                                        dispatch(mainDispatcher(value, searchBy[2], sortBy[2], true, false, 0));
-                                    }}*/
                                 >
                                     <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
                                         {item}
@@ -49,9 +45,6 @@ const Pagination = () => {
                                 <span
                                     key={id}
                                     className="page-num un"
-                                    /*onClick={() => {
-                                        dispatch(mainDispatcher(value, searchBy[2], sortBy[2], true, false, 0));
-                                    }}*/
                                 >
                                     <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
                                         start
@@ -60,9 +53,6 @@ const Pagination = () => {
                                 <span
                                     key={id + 1}
                                     className="page-num first"
-                                    /*onClick={() => {
-                                        dispatch(mainDispatcher(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                    }}*/
                                 >
                                     <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
                                         {item}
@@ -77,9 +67,6 @@ const Pagination = () => {
                                 <span
                                     key={id + 1}
                                     className="page-num _active"
-                                    /*onClick={() => {
-                                        dispatch(mainDispatcher(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                    }}*/
                                 >
                                     <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
                                         {item}
@@ -92,9 +79,6 @@ const Pagination = () => {
                                 <span
                                     key={id + 1}
                                     className="page-num sec"
-                                    /*onClick={() => {
-                                        dispatch(mainDispatcher(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                    }}*/
                                 >
                                     <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
                                         {item}
@@ -103,9 +87,6 @@ const Pagination = () => {
                                 <span
                                     key={id + 2}
                                     className="page-num un"
-                                    /*onClick={() => {
-                                        dispatch(mainDispatcher(value, searchBy[2], sortBy[2], true, false, (totalPages - 1)));
-                                    }}*/
                                 >
                                     <Link to={`/?value=${value}&offset=${totalPages - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
                                         end
@@ -120,9 +101,6 @@ const Pagination = () => {
                         <span
                             key={id + 1}
                             className="page-num _active"
-                            /*onClick={() => {
-                                dispatch(mainDispatcher(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                            }}*/
                         >
                             <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
                                 {item}
@@ -134,9 +112,6 @@ const Pagination = () => {
                             <span
                                 key={id + 1}
                                 className="page-num"
-                                /*onClick={() => {
-                                    dispatch(mainDispatcher(value, searchBy[2], sortBy[2], true, false, (item - 1)));
-                                }}*/
                             >
                                 <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
                                     {item}

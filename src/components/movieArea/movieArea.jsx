@@ -9,11 +9,12 @@ import {
     Redirect,
   } from 'react-router-dom';
 import mainDispatcher from '../../redux/actions';
-import pageCreator from '../../utils/pageCreator';
 import Pagination from '../pagination';
 import { Link } from 'react-router-dom';
 
 const MovieArea = () => {
+
+    let mod;
 
     const num = useSelector((state) => state.total);
     const offset = useSelector((state) => state.offset);
@@ -27,22 +28,6 @@ const MovieArea = () => {
     const networkErr = useSelector((state) => state.networkErr);
     const dispatch = useDispatch();
 
-
-    /*useEffect(() => {
-        if(
-            localStorage.getItem('searchValue') !== null &&
-            localStorage.getItem('sortBy') !== null &&
-            localStorage.getItem('searchBy') !== null &&
-            localStorage.getItem('offset') !== null
-        ) {
-            const newValue = localStorage.getItem('searchValue');
-            const newSort = localStorage.getItem('sortBy');
-            const newSearch = localStorage.getItem('searchBy');
-            const newOffset = localStorage.getItem('offset');
-    
-            dispatch(mainDispatcher(newValue, newSearch, newSort, false, false, +newOffset));
-        }
-    }, []);*/
     
     return (
         <div className="movie-area">
@@ -55,12 +40,10 @@ const MovieArea = () => {
                 <div className={"not-found error" + networkErr}>
                     Sorry, cannot load this page.
                     Please, check your Internet connection.
-                    <p
-                        onClick={() => {
-                            dispatch(mainDispatcher(value, searchBy[2], sortBy[2], false, false, offset));
-                        }}
-                    >
-                        CLICK TO RETRY
+                    <p>
+                        <Link to={`/?value=${value}&offset=${offset}&searchBy=${searchBy[2]}&sortBy=release_date`} >
+                            CLICK TO RETRY
+                        </Link>
                     </p>
                 </div>
                 <div className={"results-for" + resultsFor[0]}>Results for <span>'{resultsFor[1]}':</span></div>
@@ -71,10 +54,6 @@ const MovieArea = () => {
                         <button
                             type="button"
                             className={sortBy[0]}
-                            /*onClick={() => {
-                                const newSort = 'release_date';
-                                dispatch(mainDispatcher(value, searchBy[2], newSort));
-                            }}*/
                         >
                             <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=release_date`} >
                                 Release date
@@ -83,10 +62,6 @@ const MovieArea = () => {
                         <button
                             type="button"
                             className={sortBy[1]}
-                            /*onClick={() => {
-                                const newSort = 'vote_average';
-                                dispatch(mainDispatcher(value, searchBy[2], newSort));
-                            }}*/
                         >
                             <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=vote_average`} >
                                 Rating
