@@ -71,6 +71,7 @@ const MovieArea = () => {
                 </div>
                 <Switch >
                     <Route exact path="/" component={MovieRows} />
+                    <Redirect path="*" to="/" />
                 </Switch>
                 <Pagination />
             </div>

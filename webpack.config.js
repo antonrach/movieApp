@@ -56,6 +56,7 @@ module.exports = {
     output: {
         filename: './scripts/[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
+        publicPath: '/',
     },
     optimization: optimize(),
     devServer: {
@@ -63,7 +64,8 @@ module.exports = {
         port: 4200, 
         disableHostCheck: true,
         publicPath: 'http://localhost:4200/',
-        hot: true
+        hot: true,
+        historyApiFallback: true,
     },
     plugins: [
         new HTMLWebpackPlugin({template: 'index.html', filename: 'index.html'}),
