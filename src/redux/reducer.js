@@ -43,23 +43,6 @@ const reducer = (state = initialState, action) => {
                     }
                 ]
             };
-            case 'ADD_MOVIE_IMG':
-                return {
-                    ...state,
-                    data: [
-                        ...state.data,
-                        {
-                            movieName: action.payload.title,
-                            movieYear: action.payload.release_date.slice(0, 4),
-                            movieGenre: action.payload.genres,
-                            moviePoster: `./img/cinema.jpg`,
-                            movieDesc: action.payload.overview,
-                            movieDate: action.payload.release_date,
-                            movieBudget: action.payload.budget,
-                            movieRating: action.payload.vote_average,
-                        }
-                    ]
-                };
         case 'CLEAR': 
             return {
                 ...state,

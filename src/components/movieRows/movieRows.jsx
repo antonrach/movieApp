@@ -15,12 +15,13 @@ const MovieRows = () => {
     const history = useHistory();
     const { value, offset, sortBy, searchBy } = parse(location.search);
 
-    let newValue;
-    let newOffset;
-    let newSearchBy;
-    let newSortBy;
-
     useEffect(() => {
+
+        let newValue;
+        let newOffset;
+        let newSearchBy;
+        let newSortBy;
+
         if (value === undefined) {
             newValue = '';
         } else {
