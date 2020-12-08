@@ -30,12 +30,12 @@ const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offse
                         type: 'NOT_FOUND'
                     });
                 }
-                data.data.forEach(item => {
-                    _dispatch({
-                        type: 'ADD_MOVIE',
-                        payload: item,
-                    })
-                });
+                _dispatch({
+                    type: 'ADD_MOVIES',
+                    payload: {
+                        movies: data.data,
+                    }
+                })
                 _dispatch({
                     type: 'NUMBER',
                     payload: data,

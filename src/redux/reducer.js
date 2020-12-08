@@ -26,22 +26,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case 'ADD_MOVIE':
+        case 'ADD_MOVIES': 
             return {
                 ...state,
-                data: [
-                    ...state.data,
-                    {
-                        movieName: action.payload.title,
-                        movieYear: action.payload.release_date.slice(0, 4),
-                        movieGenre: action.payload.genres,
-                        moviePoster: action.payload.poster_path,
-                        movieDesc: action.payload.overview,
-                        movieDate: action.payload.release_date,
-                        movieBudget: action.payload.budget,
-                        movieRating: action.payload.vote_average,
-                    }
-                ]
+                data: action.payload.movies,
             };
         case 'CLEAR': 
             return {

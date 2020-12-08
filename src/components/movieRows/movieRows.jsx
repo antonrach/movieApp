@@ -26,15 +26,15 @@ const MovieRows = () => {
             {
                 movies.map((item, id) => (
                     <Movie
-                        movieTittle={item.movieName}
+                        movieTittle={item.title}
                         key={id}
-                        movieYear={item.movieYear}
-                        movieGenres={item.movieGenre}
-                        moviePoster={item.moviePoster}
-                        movieDesc={item.movieDesc}
-                        movieDate={item.movieDate}
-                        movieBudget={item.movieBudget}
-                        moviemovieRating={item.movieRating}
+                        movieYear={item.release_date.slice(0, 4)}
+                        movieGenres={item.genres}
+                        moviePoster={item.poster_path}
+                        movieDesc={item.overview}
+                        movieDate={item.release_date}
+                        movieBudget={item.budget}
+                        moviemovieRating={item.vote_average}
                     />
                 ))
             }
