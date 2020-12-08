@@ -9,6 +9,11 @@
     max-width: 70%;
 }
 .tandp {
+    display: block;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: white;
     &:hover {
         cursor: pointer;
         & .movie-title {
@@ -22,9 +27,11 @@
     }
 }
 .poster {
+    display: block;
     margin: auto;
     height: 375px;
     width: 90%;
+    object-fit: cover;
     transition: .2s;
     margin-bottom: 30px;
     background-position: center;

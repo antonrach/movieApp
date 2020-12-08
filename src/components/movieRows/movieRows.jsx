@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Movie from '../movie';
 import { useDispatch, useSelector } from 'react-redux';
 import addMovie from '../../redux/actions';
@@ -11,38 +11,12 @@ const MovieRows = () => {
 
     const movies = useSelector((state) => state.data);
 
-    const locaction = useLocation();
+    const location = useLocation();
     const history = useHistory();
     const { value, offset, sortBy, searchBy } = parse(location.search);
 
     useEffect(() => {
-
-        let newValue;
-        let newOffset;
-        let newSearchBy;
-        let newSortBy;
-
-        if (value === undefined) {
-            newValue = '';
-        } else {
-            newValue = value;
-        }
-        if (offset === undefined) {
-            newOffset = 0;
-        } else {
-            newOffset = offset;
-        }
-        if (sortBy === undefined) {
-            newSortBy = 'release_date';
-        } else {
-            newSortBy = sortBy;
-        }
-        if (searchBy === undefined) {
-            newSearchBy = 'title';
-        } else {
-            newSearchBy = searchBy;
-        }
-        dispatch(addMovie(newValue, newSearchBy, newSortBy, newOffset));
+        dispatch(addMovie(value, searchBy, sortBy, offset));
     }, [history.location.key])
 
     //http://localhost:4200/?value=lord&offset=8&searchBy=title&sortBy=release_date

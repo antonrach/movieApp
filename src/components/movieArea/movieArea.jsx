@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Details from '../details';
 import MovieRows from '../movieRows';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-    BrowserRouter,
     Route,
     Switch,
     Redirect,
+    Link,
   } from 'react-router-dom';
-import mainDispatcher from '../../redux/actions';
 import Pagination from '../pagination';
-import { Link } from 'react-router-dom';
+import urlGenerator from '../../utils/urlGenerator';
 
 const MovieArea = () => {
-
-    let mod;
 
     const num = useSelector((state) => state.total);
     const offset = useSelector((state) => state.offset);
@@ -26,7 +23,6 @@ const MovieArea = () => {
     const loading = useSelector((state) => state.loading);
     const notFound = useSelector((state) => state.notFound);
     const networkErr = useSelector((state) => state.networkErr);
-    const dispatch = useDispatch();
 
     
     return (
@@ -41,7 +37,7 @@ const MovieArea = () => {
                     Sorry, cannot load this page.
                     Please, check your Internet connection.
                     <p>
-                        <Link to={`/?value=${value}&offset=${offset}&searchBy=${searchBy[2]}&sortBy=release_date`} >
+                        <Link to={urlGenerator(value, offset, searchBy[2], sortBy[2])} >
                             CLICK TO RETRY
                         </Link>
                     </p>
@@ -55,7 +51,7 @@ const MovieArea = () => {
                             type="button"
                             className={sortBy[0]}
                         >
-                            <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=release_date`} >
+                            <Link to={urlGenerator(value, 0, searchBy[2], 'release_date')} >
                                 Release date
                             </Link>
                         </button>
@@ -63,7 +59,7 @@ const MovieArea = () => {
                             type="button"
                             className={sortBy[1]}
                         >
-                            <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=vote_average`} >
+                            <Link to={urlGenerator(value, 0, searchBy[2], 'vote_average')} >
                                 Rating
                             </Link>
                         </button>

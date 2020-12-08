@@ -29,6 +29,7 @@
 }
 
 .close-btn {
+    @include arial;
     font-size: 38px;
     font-weight: bold;
     line-height: 1;
@@ -36,6 +37,9 @@
     width: 40px;
     border-radius: 50%;
     border: 2px white solid;
+    display: block;
+    color: white;
+    font-weight: normal;
     position: relative;
     margin-left: auto;
     background-color: black;

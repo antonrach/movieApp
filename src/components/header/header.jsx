@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import mainDispatcher from '../../redux/actions';
 import { Link } from 'react-router-dom';
+import urlGenerator from '../../utils/urlGenerator';
+
 let ready = false;
 
 
@@ -27,7 +28,7 @@ const Header = () => {
                 <div className="container">
                     <p className="exclamation"><span
                     >
-                        <Link to={`/?value=&offset=0&searchBy=title&sortBy=${sortBy[2]}`} >
+                        <Link to={urlGenerator('', 0, 'title', sortBy[2])} >
                             Find any movie here!
                         </Link>
                         
@@ -37,7 +38,7 @@ const Header = () => {
                         onSubmit={
                             (e) => {
                                 e.preventDefault();
-                                location.href = `/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`
+                                location.href = urlGenerator(value, 0, searchBy[2], sortBy[2]);
                             }
                         }
                     >

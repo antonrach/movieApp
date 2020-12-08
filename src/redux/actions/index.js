@@ -1,6 +1,6 @@
 let loading = false;
 
-const addMovie = (value, searchBy, sortBy, offset) => {
+const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offset = 0) => {
     if(loading) {
         return (_dispatch) => {
             location.reload() 
@@ -26,7 +26,6 @@ const addMovie = (value, searchBy, sortBy, offset) => {
                     return
                 }
                 if(+data.total === 0) {
-                    loading = false;
                     _dispatch({
                         type: 'NOT_FOUND'
                     });

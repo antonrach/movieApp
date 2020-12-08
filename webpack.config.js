@@ -38,11 +38,20 @@ const cssLoader = () => {
     }
 }
 
-const serverLoad = () => {
+const serverLoad = (file, polyfill) => {
     if(isProd) {
-        return ['@babel/polyfill', './index.js']
+        if(polyfill) {
+            return [polyfill, file]
+        } else {
+            return file
+        }
+        
     } else {
-        return ["webpack/hot/dev-server",'webpack-dev-server/client?http://localhost:4200/', '@babel/polyfill', './index.js']
+        if(polyfill) {
+            return ["webpack/hot/dev-server",'webpack-dev-server/client?http://localhost:4200/', polyfill, file]
+        } else {
+            return ["webpack/hot/dev-server",'webpack-dev-server/client?http://localhost:4200/', file]
+        }
     }
 }
 
@@ -51,7 +60,8 @@ module.exports = {
     devtool: 'inline-source-map',
     mode: 'development',
     entry: {
-        main: serverLoad(),
+        main: serverLoad('./index.js', '@babel/polyfill'),
+        //outline: serverLoad('./outline.js', '@babel/polyfill'),
     },
     output: {
         filename: './scripts/[name].[contenthash].js',

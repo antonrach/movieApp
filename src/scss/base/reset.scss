@@ -9,3 +9,7 @@ body {
     color: white;
     
 }
+
+body:not(.user-is-tabbing) button {
+    outline: none;
+  }

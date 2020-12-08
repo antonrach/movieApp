@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import pageCreator from '../../utils/pageCreator';
-import { useSelector, useDispatch } from 'react-redux';
-import mainDispatcher from '../../redux/actions';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import urlGenerator from '../../utils/urlGenerator';
 
 const Pagination = () => {
 
@@ -15,8 +15,6 @@ const Pagination = () => {
     const totalPages = Math.ceil(num / 12);
 
     const [newPages, setNP] = useState([]);
-
-    const dispatch = useDispatch();
 
     useEffect(() => {
         const pages = [];
@@ -34,7 +32,7 @@ const Pagination = () => {
                                     className="page-num _active"
                                     key={id + 1}
                                 >
-                                    <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
+                                    <Link to={urlGenerator(value, 0, searchBy[2], sortBy[2])} >
                                         {item}
                                     </Link>
                                 </span>
@@ -46,7 +44,7 @@ const Pagination = () => {
                                     key={id}
                                     className="page-num un"
                                 >
-                                    <Link to={`/?value=${value}&offset=0&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
+                                    <Link to={urlGenerator(value, 0, searchBy[2], sortBy[2])} >
                                         start
                                     </Link>
                                 </span>
@@ -54,7 +52,7 @@ const Pagination = () => {
                                     key={id + 1}
                                     className="page-num first"
                                 >
-                                    <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
+                                    <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
                                         {item}
                                     </Link>
                                 </span>
@@ -68,7 +66,7 @@ const Pagination = () => {
                                     key={id + 1}
                                     className="page-num _active"
                                 >
-                                    <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
+                                    <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
                                         {item}
                                     </Link>
                                 </span>
@@ -80,7 +78,7 @@ const Pagination = () => {
                                     key={id + 1}
                                     className="page-num sec"
                                 >
-                                    <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
+                                    <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
                                         {item}
                                     </Link>
                                 </span>
@@ -88,7 +86,7 @@ const Pagination = () => {
                                     key={id + 2}
                                     className="page-num un"
                                 >
-                                    <Link to={`/?value=${value}&offset=${totalPages - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
+                                    <Link to={urlGenerator(value, (totalPages - 1), searchBy[2], sortBy[2])} >
                                         end
                                     </Link>
                                 </span>
@@ -102,7 +100,7 @@ const Pagination = () => {
                             key={id + 1}
                             className="page-num _active"
                         >
-                            <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
+                            <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
                                 {item}
                             </Link>
                         </span>
@@ -113,7 +111,7 @@ const Pagination = () => {
                                 key={id + 1}
                                 className="page-num"
                             >
-                                <Link to={`/?value=${value}&offset=${item - 1}&searchBy=${searchBy[2]}&sortBy=${sortBy[2]}`} >
+                                <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
                                     {item}
                                 </Link>
                             </span> 

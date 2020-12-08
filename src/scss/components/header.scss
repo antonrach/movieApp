@@ -43,7 +43,6 @@
     }
     & > button {
         width: calc(5% - 5px);
-        outline: none;
         border: none;
         font-family: 'Arial', sans-serif;
         font-weight: bold;
@@ -64,7 +63,6 @@
     display: flex;
     align-items: center;
     & > button {
-        outline: none;
         border: none;
         @include arial;
         transition: .2s;
@@ -79,7 +77,7 @@
         padding-bottom: 5px;
         font-weight: bold;
         &:last-of-type {
-            margin-right: 0;
+            margin-right: 1px;
         }
         &._active {
             background-color: #fff;

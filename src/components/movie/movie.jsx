@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import urlGenerator from '../../utils/urlGenerator';
 
 const Movie = (props) => {
 
-    const value = useSelector((state) => state.value);
     const sortBy = useSelector((state) => state.sortBy);
-    const searchBy = useSelector((state) => state.searchBy);
 
-    const [bgImg, setBgImg] = useState(''); 
+    const [bgImg, setBgImg] = useState('./img/black.png'); 
 
     const dispatch = useDispatch();
 
@@ -25,9 +24,16 @@ const Movie = (props) => {
     return (
         <div className="movie">
             <div className="movie-cont">
-                <div
+                <button
                     className="tandp"
-                    onClick={() => {
+                    onFocus={(event) => {
+                        if(document.querySelector('body').classList.contains('user-is-tabbing')) {
+
+                        } else {
+                            event.target.blur();
+                        }
+                    }}
+                    onClick={() => {                        
                         dispatch({
                             type: 'MODAL',
                             payload: {
@@ -41,17 +47,11 @@ const Movie = (props) => {
                         })
                     }}
                 >
-                    <div
-                        className="poster"
-                        style={{
-                            backgroundImage: `url(${ bgImg })`,
-                            backgroundSize: 'cover',
-                        }}
-                    ></div>
+                    <img src={bgImg} className="poster" />
                     <div className="movie-title">
                         {props.movieTittle}
                     </div>
-                </div>
+                </button>
                 <div className="gandy">
                     <div className="genres">
                         {props.movieGenres.map((item, id) => (
@@ -59,7 +59,7 @@ const Movie = (props) => {
                                 className="genre"
                                 key={id}
                             >
-                                <Link to={`/?value=${item}&offset=0&searchBy=genres&sortBy=${sortBy[2]}`} >
+                                <Link to={urlGenerator(item, 0, 'genres', sortBy[2])} >
                                     {item}
                                 </Link>
                             </p>

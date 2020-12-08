@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import urlGenerator from '../../utils/urlGenerator';
 
 Modal.setAppElement('.area');
 
@@ -44,7 +45,7 @@ const Details = () => {
                 }
             }
         >
-            <div
+            <button
                 className="close-btn"
                 onClick={() => {
                     dispatch({
@@ -53,7 +54,7 @@ const Details = () => {
                 }}
             >
                 <p>&#215;</p>
-            </div>
+            </button>
             <h2>{modalProps.title}</h2>
             <div className="genres-modal">
                 {modalProps.genres.map((item, id) => (
@@ -66,7 +67,7 @@ const Details = () => {
                             });
                         }}
                     >
-                        <Link to={`/?value=${item}&offset=0&searchBy=genres&sortBy=${sortBy[2]}`} >
+                        <Link to={urlGenerator(item, 0, 'genres', sortBy[2])} >
                             {item}
                         </Link>
                     </span>
