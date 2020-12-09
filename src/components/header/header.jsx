@@ -61,7 +61,6 @@ const Header = () => {
                             className={searchBy[0]}
                             onClick={ () => {
                                 dispatch({type: 'TITLE'});
-                                localStorage.setItem('searchBy', 'TITLE');
                             }}
                         >
                             title
@@ -71,7 +70,6 @@ const Header = () => {
                             className={searchBy[1]}
                             onClick={ () => {
                                 dispatch({type: 'GENRES'});
-                                localStorage.setItem('searchBy', 'GENRES');
                             }}
                         >
                             genre
