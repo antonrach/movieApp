@@ -32,7 +32,7 @@ const Pagination = () => {
                                     className="page-num _active"
                                     key={id + 1}
                                 >
-                                    <Link to={urlGenerator(value, 0, searchBy[2], sortBy[2])} >
+                                    <Link to={urlGenerator({value, searchBy, sortBy})} >
                                         {item}
                                     </Link>
                                 </span>
@@ -44,7 +44,7 @@ const Pagination = () => {
                                     key={id}
                                     className="page-num un"
                                 >
-                                    <Link to={urlGenerator(value, 0, searchBy[2], sortBy[2])} >
+                                    <Link to={urlGenerator({value, searchBy, sortBy})} >
                                         start
                                     </Link>
                                 </span>
@@ -52,7 +52,7 @@ const Pagination = () => {
                                     key={id + 1}
                                     className="page-num first"
                                 >
-                                    <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
+                                    <Link to={urlGenerator({value, offset: (item - 1), searchBy, sortBy})} >
                                         {item}
                                     </Link>
                                 </span>
@@ -66,7 +66,7 @@ const Pagination = () => {
                                     key={id + 1}
                                     className="page-num _active"
                                 >
-                                    <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
+                                    <Link to={urlGenerator({value, offset: (item - 1), searchBy, sortBy})} >
                                         {item}
                                     </Link>
                                 </span>
@@ -78,7 +78,7 @@ const Pagination = () => {
                                     key={id + 1}
                                     className="page-num sec"
                                 >
-                                    <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
+                                    <Link to={urlGenerator({value, offset: (item - 1), searchBy, sortBy})} >
                                         {item}
                                     </Link>
                                 </span>
@@ -86,7 +86,7 @@ const Pagination = () => {
                                     key={id + 2}
                                     className="page-num un"
                                 >
-                                    <Link to={urlGenerator(value, (totalPages - 1), searchBy[2], sortBy[2])} >
+                                    <Link to={urlGenerator({value, offset: (totalPages - 1), searchBy, sortBy})} >
                                         end
                                     </Link>
                                 </span>
@@ -100,7 +100,7 @@ const Pagination = () => {
                             key={id + 1}
                             className="page-num _active"
                         >
-                            <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
+                            <Link to={urlGenerator({value, offset: (item - 1), searchBy, sortBy})} >
                                 {item}
                             </Link>
                         </span>
@@ -111,7 +111,7 @@ const Pagination = () => {
                                 key={id + 1}
                                 className="page-num"
                             >
-                                <Link to={urlGenerator(value, (item - 1), searchBy[2], sortBy[2])} >
+                                <Link to={urlGenerator({value, offset: (item - 1), searchBy, sortBy})} >
                                     {item}
                                 </Link>
                             </span> 

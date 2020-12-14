@@ -19,32 +19,30 @@ const MovieArea = () => {
     const sortBy = useSelector((state) => state.sortBy);
     const searchBy = useSelector((state) => state.searchBy);
     const value = useSelector((state) => state.value);
-    const resultsFor = useSelector((state) => state.resultsFor);
-
     
     return (
         <div className="movie-area">
             <div className="container">
                 <Details />
                 <SpecialPages />
-                <div className={"results-for" + resultsFor[0]}>Results for <span>'{resultsFor[1]}':</span></div>
-                <div className={"results" + hideNum}>
+                <div className={(value === '') ? "results-for" : "results-for _active"}>Results for <span>'{value}':</span></div>
+                <div className={hideNum ? "results" : "results _active"}>
                     <div className="number">{num} movies found</div>
                     <div className="sort-by">
                         <p>Sort by:</p>
                         <button
                             type="button"
-                            className={sortBy[0]}
+                            className={(sortBy === 'release_date') ? '_active' : ''}
                         >
-                            <Link to={urlGenerator(value, 0, searchBy[2], 'release_date')} >
+                            <Link to={urlGenerator({value, searchBy})} >
                                 Release date
                             </Link>
                         </button>
                         <button
                             type="button"
-                            className={sortBy[1]}
+                            className={(sortBy === 'vote_average') ? '_active' : ''}
                         >
-                            <Link to={urlGenerator(value, 0, searchBy[2], 'vote_average')} >
+                            <Link to={urlGenerator({value, searchBy, sortBy: 'vote_average'})} >
                                 Rating
                             </Link>
                         </button>

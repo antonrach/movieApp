@@ -67,7 +67,7 @@ const Details = () => {
                             });
                         }}
                     >
-                        <Link to={urlGenerator(item, 0, 'genres', sortBy[2])} >
+                        <Link to={urlGenerator({value: item, searchBy: 'genres', sortBy})} >
                             {item}
                         </Link>
                     </span>

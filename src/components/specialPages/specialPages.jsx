@@ -23,7 +23,7 @@ const SpecialPages = () => {
                 Sorry, cannot load this page.
                 Please, check your Internet connection.
                 <p>
-                    <Link to={urlGenerator(value, offset, searchBy[2], sortBy[2])} >
+                    <Link to={urlGenerator({value, offset, searchBy, sortBy})} >
                         CLICK TO RETRY
                     </Link>
                 </p>

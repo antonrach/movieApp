@@ -6,7 +6,7 @@ const pageCreator = (pages, totalPages, currentPage) => {
                     pages.push(i);
                 }
             } else {
-                for (let i = (currentPage - 4); i <= totalPages; i++) {
+                for (let i = (totalPages - 4); i <= totalPages; i++) {
                     pages.push(i);
                 }
             }

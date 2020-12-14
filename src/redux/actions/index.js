@@ -21,10 +21,6 @@ const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offse
                 _dispatch({
                     type: 'SUCCESS',
                 });
-                if(data.data.length === 0 && +data.total !== 0) {
-                    location.href = `/?value=${value}&offset=0&searchBy=${searchBy}&sortBy=${sortBy}`;
-                    return
-                }
                 if(+data.total === 0) {
                     _dispatch({
                         type: 'NOT_FOUND'
@@ -40,18 +36,7 @@ const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offse
                     type: 'NUMBER',
                     payload: data,
                 });
-                if(value !== '') {
-                    _dispatch({
-                        type: 'RESULTS',
-                        payload: {
-                            results: value,
-                        },
-                    })
-                } else {
-                    _dispatch({
-                        type: 'RESULTS_HIDE',
-                    })
-                }
+
                 loading = false;
             })
             .catch(() => {
@@ -62,9 +47,6 @@ const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offse
                 _dispatch({type: 'LOADED'});
                 _dispatch({
                     type: 'FOUND',
-                });
-                _dispatch({
-                    type: 'RESULTS_HIDE',
                 });
                 _dispatch({
                     type: 'NUMBER_HIDE',

@@ -1,14 +1,11 @@
-import { combineReducers } from "redux";
-
 const initialState = {
     data: [],
     total: 0,
     offset: 0,
-    hideNum: '',
-    searchBy: [' _active', '', 'title'],
-    sortBy: [' _active', '', 'release_date'],
+    hideNum: true,
+    searchBy: 'title',
+    sortBy: 'release_date',
     value: '',
-    resultsFor: ['', ''],
     loading: '',
     notFound: '',
     networkErr: '',
@@ -40,7 +37,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 total: action.payload.total,
-                hideNum: ' _active',
+                hideNum: false,
             };
         case 'OFFSET':
             return {
@@ -50,43 +47,33 @@ const reducer = (state = initialState, action) => {
         case 'NUMBER_HIDE':
             return {
                 ...state,
-                hideNum: '',
+                hideNum: true,
                 total: 0,
             };
         case 'TITLE':
             return {
                 ...state,
-                searchBy: [' _active', '', 'title'],
+                searchBy: 'title',
             };
         case 'GENRES':
             return {
                 ...state,
-                searchBy: ['', ' _active', 'genres'],
+                searchBy: 'genres',
             };
         case 'RATING':
             return {
                 ...state,
-                sortBy: ['', ' _active', 'vote_average'],
+                sortBy: 'vote_average',
             };
         case 'DATE':
             return {
                 ...state,
-                sortBy: [' _active', '', 'release_date'],
+                sortBy: 'release_date',
             };
         case 'VALUE':
             return {
                 ...state,
                 value: action.payload.value,
-            };
-        case 'RESULTS':
-            return {
-                ...state,
-                resultsFor: [' _active', action.payload.results],
-            };
-        case 'RESULTS_HIDE':
-            return {
-                ...state,
-                resultsFor: ['', ''],
             };
         case 'LOADING':
             return {

@@ -59,7 +59,7 @@ const Movie = (props) => {
                                 className="genre"
                                 key={id}
                             >
-                                <Link to={urlGenerator(item, 0, 'genres', sortBy[2])} >
+                                <Link to={urlGenerator({value: item, searchBy: 'genres', sortBy})} >
                                     {item}
                                 </Link>
                             </p>

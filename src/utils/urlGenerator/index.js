@@ -1,4 +1,4 @@
-const urlGenerator = (value, offset, searchBy, sortBy) => {
+const urlGenerator = ({value = '', offset = 0, searchBy = 'title', sortBy = 'release_date'}) => {
     let urlValue;
     let urlSearchBy;
     let urlSortBy;

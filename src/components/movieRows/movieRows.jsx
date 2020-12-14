@@ -16,7 +16,7 @@ const MovieRows = () => {
     const { value, offset, sortBy, searchBy } = parse(location.search);
 
     useEffect(() => {
-        dispatch(addMovie(value, searchBy, sortBy, offset));
+        dispatch(addMovie(value, searchBy, sortBy, offset, history));
     }, [history.location.key])
 
     //http://localhost:4200/?value=lord&offset=8&searchBy=title&sortBy=release_date

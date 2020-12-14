@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import urlGenerator from '../../utils/urlGenerator';
 
@@ -13,6 +14,7 @@ const Header = () => {
     const searchBy = useSelector((state) => state.searchBy);
     const sortBy = useSelector((state) => state.sortBy);
     const inputValue = useSelector((state) => state.input);
+    const history = useHistory();
 
     useEffect(() => {
         if(ready) {
@@ -28,7 +30,7 @@ const Header = () => {
                 <div className="container">
                     <p className="exclamation"><span
                     >
-                        <Link to={urlGenerator('', 0, 'title', sortBy[2])} >
+                        <Link to={urlGenerator({ sortBy })} >
                             Find any movie here!
                         </Link>
                         
@@ -38,7 +40,8 @@ const Header = () => {
                         onSubmit={
                             (e) => {
                                 e.preventDefault();
-                                location.href = urlGenerator(value, 0, searchBy[2], sortBy[2]);
+                                //location.href = urlGenerator({ value, searchBy, sortBy });
+                                history.push(urlGenerator({ value, searchBy, sortBy }));
                             }
                         }
                     >
@@ -58,7 +61,7 @@ const Header = () => {
                         <div className="search-by">Search by:</div>
                         <button
                             type="button"
-                            className={searchBy[0]}
+                            className={(searchBy === 'title') ? '_active' : ''}
                             onClick={ () => {
                                 dispatch({type: 'TITLE'});
                             }}
@@ -67,7 +70,7 @@ const Header = () => {
                         </button>
                         <button
                             type="button"
-                            className={searchBy[1]}
+                            className={(searchBy === 'genres') ? '_active' : ''}
                             onClick={ () => {
                                 dispatch({type: 'GENRES'});
                             }}
