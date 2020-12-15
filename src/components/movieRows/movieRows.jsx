@@ -12,6 +12,8 @@ const MovieRows = () => {
 
     const movies = useSelector((state) => state.data);
     const num = +useSelector((state) => state.total);
+    const changeOffset = useSelector((state) => state.changeOffset);
+    const networkErr = useSelector((state) => state.networkErr);
     const totalPages = Math.ceil(num / 12);
 
     const location = useLocation();
@@ -40,10 +42,10 @@ const MovieRows = () => {
         if((+offset >= 0 && +offset < totalPages) || offset === undefined) {
             return
         }
-        if(+totalPages !== 0) {
+        if(+totalPages !== 0 && !networkErr) {
             history.push(urlGenerator({value, searchBy, sortBy}));
         }
-    }, [movies, totalPages])
+    }, [changeOffset])
 
     //http://localhost:4200/?value=lord&offset=8&searchBy=title&sortBy=release_date
 

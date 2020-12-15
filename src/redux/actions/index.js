@@ -36,6 +36,9 @@ const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offse
                     type: 'NUMBER',
                     payload: data,
                 });
+                _dispatch({
+                    type: 'CHANGE_OFFSET',
+                });
 
                 loading = false;
             })

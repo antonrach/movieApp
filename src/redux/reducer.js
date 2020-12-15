@@ -10,6 +10,7 @@ const initialState = {
     notFound: false,
     networkErr: false,
     input: false,
+    changeOffset: false,
     modal: {
         open: false,
         title: '',
@@ -131,7 +132,12 @@ const reducer = (state = initialState, action) => {
                     ...state.modal,
                     open: false,
                 }
-            }
+            };
+        case 'CHANGE_OFFSET':
+            return {
+                ...state,
+                changeOffset: !state.changeOffset,
+            };
         default:
             return state;
             

@@ -18,6 +18,7 @@ const Details = () => {
         <Modal
             closeTimeoutMS={500}
             isOpen={classModal}
+            //className={'modal-content'}
             style={
                 {
                     overlay: {
