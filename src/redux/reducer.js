@@ -6,9 +6,9 @@ const initialState = {
     searchBy: 'title',
     sortBy: 'release_date',
     value: '',
-    loading: '',
-    notFound: '',
-    networkErr: '',
+    loading: false,
+    notFound: false,
+    networkErr: false,
     input: false,
     modal: {
         open: false,
@@ -78,32 +78,32 @@ const reducer = (state = initialState, action) => {
         case 'LOADING':
             return {
                 ...state,
-                loading: ' _active',
+                loading: true,
             };
         case 'LOADED':
             return {
                 ...state,
-                loading: '',
+                loading: false,
             };
         case 'NOT_FOUND':
             return {
                 ...state,
-                notFound: ' _active',
+                notFound: true,
             };
         case 'FOUND':
             return {
                 ...state,
-                notFound: '',
+                notFound: false,
             };
         case 'ERROR':
             return {
                 ...state,
-                networkErr: ' _active',
+                networkErr: true,
             };
         case 'SUCCESS':
             return {
                 ...state,
-                networkErr: '',
+                networkErr: false,
             };
         case 'INPUT':
             return {

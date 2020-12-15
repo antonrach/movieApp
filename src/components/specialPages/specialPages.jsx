@@ -15,11 +15,11 @@ const SpecialPages = () => {
 
     return (
         <div>
-            <div className={"loading" + loading}>
+            <div className={loading ? "loading _active" : "loading"}>
                 <p>Loading...</p>
             </div>
-            <div className={"not-found" + notFound}>Sorry, cannot find your movie...</div>
-            <div className={"not-found error" + networkErr}>
+            <div className={notFound ? "not-found _active" : "not-found"}>Sorry, cannot find your movie...</div>
+            <div className={networkErr ? "not-found error _active" : "not-found error"}>
                 Sorry, cannot load this page.
                 Please, check your Internet connection.
                 <p>
