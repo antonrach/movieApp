@@ -18,33 +18,8 @@ const Details = () => {
         <Modal
             closeTimeoutMS={500}
             isOpen={classModal}
-            //className={'modal-content'}
-            style={
-                {
-                    overlay: {
-                        backgroundColor: 'rgba(0, 0, 0, .75)',
-                    },
-                    content: {
-                        width: '700px',
-                        top: '50%',
-                        left: '50%',
-                        right: '0',
-                        bottom: '0',
-                        borderRadius: '0',
-                        height: 'fit-content',
-                        minHeight: '1px',
-                        backgroundColor: 'black',
-                        border: '2px white solid',
-                        padding: '0',
-                        paddingLeft: '10px',
-                        paddingRight: '10px',
-                        paddingTop: '0',
-                        paddingBottom: '30px',
-                        overflow: 'visible'
-
-                    }
-                }
-            }
+            overlayClassName='modal-overlay'
+            className='modal-content'
         >
             <button
                 className="close-btn"
