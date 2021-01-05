@@ -1,3 +1,5 @@
+import movieFetcher from '../../utils/movieFetcher';
+
 let loading = false;
 
 const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offset = 0) => {
@@ -8,22 +10,38 @@ const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offse
     }
     return (_dispatch) => {
         _dispatch(mainDispatcher(value, searchBy, sortBy, offset));
-        fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&offset=${offset * 12}&limit=12`)
-            .then(res => res.json())
+        movieFetcher({value, searchBy, sortBy, offset})
             .then(data => {
                 _dispatch({
-                    type: 'CLEAR',
+                    type: 'ADD_MOVIES',
+                    payload: {
+                        movies: [],
+                    }
                 });
-                _dispatch({type: 'LOADED'});
                 _dispatch({
-                    type: 'FOUND',
+                    type: 'LOADING',
+                    payload: {
+                        load: false,
+                    }
                 });
                 _dispatch({
-                    type: 'SUCCESS',
+                    type: 'NOT_FOUND',
+                    payload: {
+                        notFound: false,
+                    }
+                });
+                _dispatch({
+                    type: 'ERROR',
+                    payload: {
+                        networkErr: false,
+                    },
                 });
                 if(+data.total === 0) {
                     _dispatch({
-                        type: 'NOT_FOUND'
+                        type: 'NOT_FOUND',
+                        payload: {
+                            notFound: true,
+                        }
                     });
                 }
                 _dispatch({
@@ -34,7 +52,10 @@ const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offse
                 })
                 _dispatch({
                     type: 'NUMBER',
-                    payload: data,
+                    payload: {
+                        data: data,
+                        hideNum: false,
+                    },
                 });
                 _dispatch({
                     type: 'CHANGE_OFFSET',
@@ -45,17 +66,37 @@ const addMovie = (value = '', searchBy = 'title', sortBy = 'release_date', offse
             .catch(() => {
                 loading = false;
                 _dispatch({
-                    type: 'CLEAR',
+                    type: 'ADD_MOVIES',
+                    payload: {
+                        movies: [],
+                    }
                 });
-                _dispatch({type: 'LOADED'});
                 _dispatch({
-                    type: 'FOUND',
+                    type: 'LOADING',
+                    payload: {
+                        load: false,
+                    }
                 });
                 _dispatch({
-                    type: 'NUMBER_HIDE',
+                    type: 'NOT_FOUND',
+                    payload: {
+                        notFound: false,
+                    }
+                });
+                _dispatch({
+                    type: 'NUMBER',
+                    payload: {
+                        data: {
+                            total: 0,
+                        },
+                        hideNum: true,
+                    }
                 });
                 _dispatch({
                     type: 'ERROR',
+                    payload: {
+                        networkErr: true,
+                    },
                 });
             })
     }
@@ -76,17 +117,42 @@ const mainDispatcher = (value, searchBy, sortBy, offset) => {
             payload: {offset},
         });
         if(sortBy === 'release_date') {
-            _dispatch({type: 'DATE'});
+            _dispatch({
+                type: 'SORT_BY',
+                payload: {
+                    sortBy: 'release_date',
+                },
+            });
         } else if (sortBy === 'vote_average') {
-            _dispatch({type: 'RATING'});
+            _dispatch({
+                type: 'SORT_BY',
+                payload: {
+                    sortBy: 'vote_average',
+                },
+            });
         }
         if(searchBy === 'title') {
-            _dispatch({type: 'TITLE'});
+            _dispatch({
+                type: 'SEARCH_BY',
+                payload: {
+                    searchBy: 'title',
+                },
+            });
         } else if (searchBy === 'genres') {
-            _dispatch({type: 'GENRES'});
+            _dispatch({
+                type: 'SEARCH_BY',
+                payload: {
+                    searchBy: 'genres',
+                },
+            });
         }
         window.scrollTo(0, 0);
-        _dispatch({type: 'LOADING'});
+        _dispatch({
+            type: 'LOADING',
+            payload: {
+                load: true,
+            }
+        });
         _dispatch({type: 'INPUT'});
     }
 }

@@ -63,7 +63,12 @@ const Header = () => {
                             type="button"
                             className={(searchBy === 'title') ? '_active' : ''}
                             onClick={ () => {
-                                dispatch({type: 'TITLE'});
+                                dispatch({
+                                    type: 'SEARCH_BY',
+                                    payload: {
+                                        searchBy: 'title',
+                                    },
+                                });
                             }}
                         >
                             title
@@ -72,7 +77,12 @@ const Header = () => {
                             type="button"
                             className={(searchBy === 'genres') ? '_active' : ''}
                             onClick={ () => {
-                                dispatch({type: 'GENRES'});
+                                dispatch({
+                                    type: 'SEARCH_BY',
+                                    payload: {
+                                        searchBy: 'genres',
+                                    },
+                                });
                             }}
                         >
                             genre

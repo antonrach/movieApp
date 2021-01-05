@@ -29,47 +29,26 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 data: action.payload.movies,
             };
-        case 'CLEAR': 
-            return {
-                ...state,
-                data: [],
-            };
         case 'NUMBER':
             return {
                 ...state,
-                total: action.payload.total,
-                hideNum: false,
+                total: action.payload.data.total,
+                hideNum: action.payload.hideNum,
             };
         case 'OFFSET':
             return {
                 ...state,
                 offset: action.payload.offset,
             };
-        case 'NUMBER_HIDE':
+        case 'SEARCH_BY':
             return {
                 ...state,
-                hideNum: true,
-                total: 0,
+                searchBy: action.payload.searchBy,
             };
-        case 'TITLE':
+        case 'SORT_BY':
             return {
                 ...state,
-                searchBy: 'title',
-            };
-        case 'GENRES':
-            return {
-                ...state,
-                searchBy: 'genres',
-            };
-        case 'RATING':
-            return {
-                ...state,
-                sortBy: 'vote_average',
-            };
-        case 'DATE':
-            return {
-                ...state,
-                sortBy: 'release_date',
+                sortBy: action.payload.sortBy,
             };
         case 'VALUE':
             return {
@@ -79,32 +58,17 @@ const reducer = (state = initialState, action) => {
         case 'LOADING':
             return {
                 ...state,
-                loading: true,
-            };
-        case 'LOADED':
-            return {
-                ...state,
-                loading: false,
+                loading: action.payload.load,
             };
         case 'NOT_FOUND':
             return {
                 ...state,
-                notFound: true,
-            };
-        case 'FOUND':
-            return {
-                ...state,
-                notFound: false,
+                notFound: action.payload.notFound,
             };
         case 'ERROR':
             return {
                 ...state,
-                networkErr: true,
-            };
-        case 'SUCCESS':
-            return {
-                ...state,
-                networkErr: false,
+                networkErr: action.payload.networkErr,
             };
         case 'INPUT':
             return {

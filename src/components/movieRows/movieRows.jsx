@@ -6,6 +6,9 @@ import { parse } from 'query-string';
 import { useLocation, useHistory } from 'react-router-dom';
 import urlGenerator from '../../utils/urlGenerator';
 
+//require('dotenv').config();
+const multiplyOffset = +process.env.MULTIPLY_OFFSET;
+
 const MovieRows = () => {
 
     const dispatch = useDispatch();
@@ -14,7 +17,7 @@ const MovieRows = () => {
     const num = +useSelector((state) => state.total);
     const changeOffset = useSelector((state) => state.changeOffset);
     const networkErr = useSelector((state) => state.networkErr);
-    const totalPages = Math.ceil(num / 12);
+    const totalPages = Math.ceil(num / multiplyOffset);
 
     const location = useLocation();
     const history = useHistory();
@@ -52,10 +55,10 @@ const MovieRows = () => {
     return (
         <div className="movie-rows">
             {
-                movies.map((item, id) => (
+                movies.map((item) => (
                     <Movie
                         movieTittle={item.title}
-                        key={id}
+                        key={item.id}
                         movieYear={item.release_date.slice(0, 4)}
                         movieGenres={item.genres}
                         moviePoster={item.poster_path}
