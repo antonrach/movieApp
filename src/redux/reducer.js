@@ -13,6 +13,7 @@ const initialState = {
     changeOffset: false,
     modal: {
         open: false,
+        loading: false,
         title: '',
         genres: [],
         description: '',
@@ -75,17 +76,27 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 input: !state.input,
             };
+        case 'MODAL_OPEN':
+            return {
+                ...state,
+                modal: {
+                    ...state.modal,
+                    open: true,
+                    loading: true,
+                },
+            };
         case 'MODAL':
             return {
                 ...state,
                 modal: {
-                    open: true,
+                    ...state.modal,
+                    loading: false,
                     title: action.payload.title,
                     genres: action.payload.genres,
-                    description: action.payload.description,
-                    date: action.payload.date,
+                    description: action.payload.overview,
+                    date: action.payload.release_date,
                     budget: action.payload.budget,
-                    rating: action.payload.rating,
+                    rating: action.payload.vote_average,
 
                 },
             };
@@ -95,6 +106,15 @@ const reducer = (state = initialState, action) => {
                 modal: {
                     ...state.modal,
                     open: false,
+                }
+            };
+        case 'MODAL_ERROR':
+            return {
+                ...state,
+                modal: {
+                    ...state.modal,
+                    error: action.payload,
+                    loading: false,
                 }
             };
         case 'CHANGE_OFFSET':

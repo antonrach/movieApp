@@ -11,6 +11,8 @@ const Details = () => {
     const classModal = useSelector((state) => state.modal.open);
     const modalProps = useSelector((state) => state.modal);
     const sortBy = useSelector((state) => state.sortBy);
+    const loading = useSelector((state) => state.modal.loading);
+    const error = useSelector((state) => state.modal.error);
 
     const dispatch = useDispatch();
 
@@ -19,7 +21,8 @@ const Details = () => {
             closeTimeoutMS={500}
             isOpen={classModal}
             overlayClassName='modal-overlay'
-            className='modal-content'
+            className={loading ? 'modal-content loading-wind' : 'modal-content'}
+            //className={'modal-content loading-wind'}
         >
             <button
                 className="close-btn"
@@ -31,6 +34,12 @@ const Details = () => {
             >
                 <p>&#215;</p>
             </button>
+            <div className="loadercont">
+                <div className="loader"></div>
+            </div>
+            <div className={error ? "errorcontwind _active" : "errorcontwind"}>
+                <div className="errorwind">Error!</div>
+            </div>
             <h2>{modalProps.title}</h2>
             <div className="genres-modal">
                 {modalProps.genres.map((item, id) => (

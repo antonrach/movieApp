@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Movie from '../movie';
 import { useDispatch, useSelector } from 'react-redux';
 import addMovie from '../../redux/actions';
@@ -21,24 +21,35 @@ const MovieRows = () => {
 
     const location = useLocation();
     const history = useHistory();
-    const { value, offset, sortBy, searchBy } = parse(location.search);
+    const prevId = useRef('The first prevId');
+    const prevValue = useRef('');
+    const { value, offset, sortBy, searchBy, id } = parse(location.search);
 
     useEffect(() => {
         const sortArr = ['vote_average', 'release_date', undefined];
         const searchArr = ['title', 'genres', undefined];
-        if(!sortArr.includes(sortBy) || !searchArr.includes(searchBy)) {
-            let srt = sortBy; 
-            let srch = searchBy;
-            if(!sortArr.includes(sortBy)) {
-                srt = 'release_date';
+
+        if((id === undefined && prevId.current === id) ||
+        (id === undefined && prevId.current !== undefined && prevValue.current !== value && searchBy === 'genres') ||
+        (prevId.current === 'The first prevId')
+        ) {
+            if(!sortArr.includes(sortBy) || !searchArr.includes(searchBy)) {
+                let srt = sortBy; 
+                let srch = searchBy;
+                if(!sortArr.includes(sortBy)) {
+                    srt = 'release_date';
+                }
+                if(!searchArr.includes(searchBy)) {
+                    srch = 'title';
+                }
+                history.push(urlGenerator({sortBy: srt, searchBy: srch, value, offset}));
+            } else {
+                dispatch(addMovie(value, searchBy, sortBy, offset));
             }
-            if(!searchArr.includes(searchBy)) {
-                srch = 'title';
-            }
-            history.push(urlGenerator({sortBy: srt, searchBy: srch, value, offset}));
-        } else {
-            dispatch(addMovie(value, searchBy, sortBy, offset));
         }
+
+        prevId.current = id;
+        prevValue.current = value;
     }, [history.location.key])
 
     useEffect(() => {
@@ -62,10 +73,7 @@ const MovieRows = () => {
                         movieYear={item.release_date.slice(0, 4)}
                         movieGenres={item.genres}
                         moviePoster={item.poster_path}
-                        movieDesc={item.overview}
-                        movieDate={item.release_date}
-                        movieBudget={item.budget}
-                        moviemovieRating={item.vote_average}
+                        id={item.id}
                     />
                 ))
             }

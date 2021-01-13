@@ -8,10 +8,22 @@ const movieFetcher = ({
     offset = 0,
     searchBy = 'title',
     sortBy = 'release_date',
+    id,
 }) => {
     if(type === 'search') {
         return new Promise((res, rej) => {
             fetch(`${baseURL}?sortBy=${sortBy}&sortOrder=desc&search=${value}&searchBy=${searchBy}&offset=${offset * multiplyOffset}&limit=${multiplyOffset}`)
+                .then(res => res.json())
+                .then(data => {
+                    res(data);
+                })
+                .catch(() => {
+                    rej();
+                })
+        })
+    } else if(type === 'id') {
+        return new Promise((res, rej) => {
+            fetch(`${baseURL}/${id}`)
                 .then(res => res.json())
                 .then(data => {
                     res(data);

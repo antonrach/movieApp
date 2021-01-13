@@ -157,6 +157,31 @@ const mainDispatcher = (value, searchBy, sortBy, offset) => {
     }
 }
 
-
+export const searchById = (id) => {
+    return (_dispatch) => {
+        _dispatch({
+            type: 'MODAL_ERROR',
+            payload: false,
+        });
+        
+        _dispatch({
+            type: 'MODAL_OPEN',
+        });
+        movieFetcher({type: 'id', id})
+            .then(data => {
+                _dispatch({
+                    type: 'MODAL',
+                    payload: data,
+                })
+            })
+            .catch(() => {
+                _dispatch({
+                    type: 'MODAL_ERROR',
+                    payload: true,
+                })
+            })
+    };
+        
+};
 
 export default addMovie;

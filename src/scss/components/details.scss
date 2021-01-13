@@ -1,4 +1,5 @@
 @import '../abstracts/module';
+@import '../base/animations.scss';
 
 .ReactModal__Overlay {
     opacity: 0;
@@ -35,9 +36,11 @@
     right: 0;
     bottom: 0;
     top: 0;
+    transition: .5s;
 }
 
 .modal-content {
+    height: auto;
     position: absolute;
     width: 700px;
     top: 50%;
@@ -56,6 +59,75 @@
     padding-bottom: 30px;
     overflow: visible;
     outline: none;
+    transition: .5s;
+}
+
+.loadercont {
+    height: 200px;
+    display: none;
+    transition: .5s;
+}
+
+.modal-content.loading-wind {
+    transition: .5s;
+    & .loadercont {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: .5s;
+    }
+    & .genres-modal {
+        display: none;
+    }
+    & h2 {
+        display: none;
+    }
+    & .description {
+        display: none;
+    }
+    & .release-date  {
+        display: none;
+    }
+}
+
+.loader {
+    border: 10px rgba(255, 255, 255, .4) solid;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border-left-color: white;
+    animation: loader 1s linear infinite;
+}
+
+.errorcontwind {
+    display: none;
+    height: 200px;
+    &._active {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: .5s;
+        & ~ .genres-modal {
+            display: none;
+        }
+        & ~ h2 {
+            display: none;
+        }
+        & ~ .description {
+            display: none;
+        }
+        & ~ .release-date  {
+            display: none;
+        }
+    }
+}
+
+.errorwind {
+    font-family: 'Mali', cursive;
+    color: $dark-red;
+    font-size: 72px;
+    font-weight: 600;
+    text-align: center;
 }
 
 .close-btn {

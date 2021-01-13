@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import urlGenerator from '../../utils/urlGenerator';
+import { searchById } from '../../redux/actions';
 
 const Movie = (props) => {
 
+    const dispatch = useDispatch();
+
     const sortBy = useSelector((state) => state.sortBy);
 
-    const [bgImg, setBgImg] = useState('./img/black.png'); 
-
-    const dispatch = useDispatch();
+    const [bgImg, setBgImg] = useState('./img/black.png');
 
     useEffect(() => {
         const img = new Image();
@@ -33,18 +34,8 @@ const Movie = (props) => {
                             event.target.blur();
                         }
                     }}
-                    onClick={() => {                        
-                        dispatch({
-                            type: 'MODAL',
-                            payload: {
-                                title: props.movieTittle,
-                                genres: props.movieGenres,
-                                description: props.movieDesc,
-                                date: props.movieDate,
-                                budget: props.movieBudget,
-                                rating: props.moviemovieRating,
-                            },
-                        })
+                    onClick={() => {
+                        dispatch(searchById(props.id));
                     }}
                 >
                     <img src={bgImg} className="poster" />
