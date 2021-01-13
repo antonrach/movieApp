@@ -26,6 +26,8 @@ const MovieRows = () => {
     const { value, offset, sortBy, searchBy, id } = parse(location.search);
 
     useEffect(() => {
+        let changePrev = true;
+
         const sortArr = ['vote_average', 'release_date', undefined];
         const searchArr = ['title', 'genres', undefined];
 
@@ -42,7 +44,9 @@ const MovieRows = () => {
                 if(!searchArr.includes(searchBy)) {
                     srch = 'title';
                 }
-                history.push(urlGenerator({sortBy: srt, searchBy: srch, value, offset}));
+                changePrev = false;
+                prevId.current = 0;
+                history.push(urlGenerator({sortBy: srt, searchBy: srch, value, offset, id}));
             } else {
                 dispatch(addMovie(value, searchBy, sortBy, offset));
                 if(prevId.current === 0 && id !== undefined) {
@@ -53,7 +57,9 @@ const MovieRows = () => {
             dispatch(searchById(id));
         }
 
-        prevId.current = id;
+        if(changePrev) {
+            prevId.current = id;
+        }
     }, [history.location.key])
 
     useEffect(() => {
