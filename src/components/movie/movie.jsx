@@ -6,9 +6,12 @@ import { searchById } from '../../redux/actions';
 
 const Movie = (props) => {
 
-    const dispatch = useDispatch();
-
     const sortBy = useSelector((state) => state.sortBy);
+    const value = useSelector((state) => state.value);
+    const searchBy = useSelector((state) => state.searchBy);
+    const offset = +useSelector((state) => state.offset);
+
+    const dispatch = useDispatch();
 
     const [bgImg, setBgImg] = useState('./img/black.png');
 
@@ -25,24 +28,23 @@ const Movie = (props) => {
     return (
         <div className="movie">
             <div className="movie-cont">
-                <button
-                    className="tandp"
-                    onFocus={(event) => {
-                        if(document.querySelector('body').classList.contains('user-is-tabbing')) {
+                <Link to={urlGenerator({value, searchBy, sortBy, offset, id: props.id})} >
+                    <button
+                        className="tandp"
+                        onFocus={(event) => {
+                            if(document.querySelector('body').classList.contains('user-is-tabbing')) {
 
-                        } else {
-                            event.target.blur();
-                        }
-                    }}
-                    onClick={() => {
-                        dispatch(searchById(props.id));
-                    }}
-                >
-                    <img src={bgImg} className="poster" />
-                    <div className="movie-title">
-                        {props.movieTittle}
-                    </div>
-                </button>
+                            } else {
+                                event.target.blur();
+                            }
+                        }}
+                    >
+                        <img src={bgImg} className="poster" />
+                        <div className="movie-title">
+                            {props.movieTittle}
+                        </div>
+                    </button>
+                </Link>
                 <div className="gandy">
                     <div className="genres">
                         {props.movieGenres.map((item, id) => (

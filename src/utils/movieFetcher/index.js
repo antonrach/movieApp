@@ -26,7 +26,11 @@ const movieFetcher = ({
             fetch(`${baseURL}/${id}`)
                 .then(res => res.json())
                 .then(data => {
-                    res(data);
+                    if(data.id === undefined) {
+                        rej();
+                    } else {
+                        res(data);
+                    }
                 })
                 .catch(() => {
                     rej();

@@ -1,8 +1,9 @@
-const urlGenerator = ({value = '', offset = 0, searchBy = 'title', sortBy = 'release_date'}) => {
+const urlGenerator = ({value = '', offset = 0, searchBy = 'title', sortBy = 'release_date', id}) => {
     let urlValue;
     let urlSearchBy;
     let urlSortBy;
     let urlOffset;
+    let urlId
 
     let counter = 0;
 
@@ -30,11 +31,17 @@ const urlGenerator = ({value = '', offset = 0, searchBy = 'title', sortBy = 'rel
         urlSortBy = `&sortBy=${sortBy}`;
         counter++;
     }
+    if(id === undefined) {
+        urlId = '';
+    } else {
+        urlId = `&id=${id}`;
+        counter++;
+    }
 
     if(counter === 0) {
         return '/';
     } else {
-        return `/?${`${urlValue}${urlOffset}${urlSearchBy}${urlSortBy}`.substr(1)}`;
+        return `/?${`${urlValue}${urlOffset}${urlSearchBy}${urlSortBy}${urlId}`.substr(1)}`;
     }
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Movie from '../movie';
 import { useDispatch, useSelector } from 'react-redux';
-import addMovie from '../../redux/actions';
+import addMovie, { searchById } from '../../redux/actions';
 import { parse } from 'query-string';
 import { useLocation, useHistory } from 'react-router-dom';
 import urlGenerator from '../../utils/urlGenerator';
@@ -17,12 +17,12 @@ const MovieRows = () => {
     const num = +useSelector((state) => state.total);
     const changeOffset = useSelector((state) => state.changeOffset);
     const networkErr = useSelector((state) => state.networkErr);
+    const shouldNotSearch = useSelector((state) => state.modal.shouldSearch);
     const totalPages = Math.ceil(num / multiplyOffset);
 
     const location = useLocation();
     const history = useHistory();
-    const prevId = useRef('The first prevId');
-    const prevValue = useRef('');
+    const prevId = useRef(0);
     const { value, offset, sortBy, searchBy, id } = parse(location.search);
 
     useEffect(() => {
@@ -30,8 +30,8 @@ const MovieRows = () => {
         const searchArr = ['title', 'genres', undefined];
 
         if((id === undefined && prevId.current === id) ||
-        (id === undefined && prevId.current !== undefined && prevValue.current !== value && searchBy === 'genres') ||
-        (prevId.current === 'The first prevId')
+        (id === undefined && prevId.current !== undefined && !shouldNotSearch) ||
+        (prevId.current === 0)
         ) {
             if(!sortArr.includes(sortBy) || !searchArr.includes(searchBy)) {
                 let srt = sortBy; 
@@ -45,11 +45,15 @@ const MovieRows = () => {
                 history.push(urlGenerator({sortBy: srt, searchBy: srch, value, offset}));
             } else {
                 dispatch(addMovie(value, searchBy, sortBy, offset));
+                if(prevId.current === 0 && id !== undefined) {
+                    dispatch(searchById(id));
+                }
             }
+        } else if(id !== undefined) {
+            dispatch(searchById(id));
         }
 
         prevId.current = id;
-        prevValue.current = value;
     }, [history.location.key])
 
     useEffect(() => {

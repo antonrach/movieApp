@@ -13,6 +13,7 @@ const initialState = {
     changeOffset: false,
     modal: {
         open: false,
+        shouldSearch: false,
         loading: false,
         title: '',
         genres: [],
@@ -106,6 +107,7 @@ const reducer = (state = initialState, action) => {
                 modal: {
                     ...state.modal,
                     open: false,
+                    shouldSearch: action.payload,
                 }
             };
         case 'MODAL_ERROR':

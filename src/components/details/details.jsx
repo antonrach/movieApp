@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Modal from 'react-modal';
 import urlGenerator from '../../utils/urlGenerator';
 
@@ -11,10 +11,15 @@ const Details = () => {
     const classModal = useSelector((state) => state.modal.open);
     const modalProps = useSelector((state) => state.modal);
     const sortBy = useSelector((state) => state.sortBy);
+    const value = useSelector((state) => state.value);
+    const searchBy = useSelector((state) => state.searchBy);
+    const offset = +useSelector((state) => state.offset);
     const loading = useSelector((state) => state.modal.loading);
     const error = useSelector((state) => state.modal.error);
+    const shouldSearch = useSelector((state) => state.modal.shouldSearch);
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     return (
         <Modal
@@ -22,13 +27,19 @@ const Details = () => {
             isOpen={classModal}
             overlayClassName='modal-overlay'
             className={loading ? 'modal-content loading-wind' : 'modal-content'}
+            onAfterClose={() => {
+                if(shouldSearch) {
+                    history.push(urlGenerator({ value, searchBy, sortBy, offset }));
+                }
+            }}
             //className={'modal-content loading-wind'}
         >
             <button
                 className="close-btn"
                 onClick={() => {
                     dispatch({
-                        type: 'CLOSE_MODAL', 
+                        type: 'CLOSE_MODAL',
+                        payload: true, 
                     });
                 }}
             >
@@ -48,7 +59,8 @@ const Details = () => {
                         key={id}
                         onClick={() => {
                             dispatch({
-                                type: 'CLOSE_MODAL', 
+                                type: 'CLOSE_MODAL',
+                                payload: false, 
                             });
                         }}
                     >
