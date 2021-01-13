@@ -28,22 +28,24 @@ const Movie = (props) => {
     return (
         <div className="movie">
             <div className="movie-cont">
-                <Link to={urlGenerator({value, searchBy, sortBy, offset, id: props.id})} >
-                    <button
-                        className="tandp"
-                        onFocus={(event) => {
-                            if(document.querySelector('body').classList.contains('user-is-tabbing')) {
+                <Link
+                    to={urlGenerator({value, searchBy, sortBy, offset, id: props.id})}
+                    onFocus={(event) => {
+                        if(document.querySelector('body').classList.contains('user-is-tabbing')) {
 
-                            } else {
-                                event.target.blur();
-                            }
-                        }}
+                        } else {
+                            event.target.blur();
+                        }
+                    }}
+                >
+                    <div
+                        className="tandp"
                     >
                         <img src={bgImg} className="poster" />
                         <div className="movie-title">
                             {props.movieTittle}
                         </div>
-                    </button>
+                    </div>
                 </Link>
                 <div className="gandy">
                     <div className="genres">
